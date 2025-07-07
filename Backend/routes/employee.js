@@ -110,20 +110,20 @@ router.get("/profile/Email", async (req, res) => {
 router.get("/get", async (req, res) => {
   try {
     const employees = await Employee.find().exec();
-
     const response = {
       count: employees.length,
-      employees: employees.map((employee) => ({
-        contactDetails: {
-          name: employee.name,
-          email: employee.email,
-          contactNo: employee.contactNo,
+      profiles: employees.map((employee) => ({
+        _id: employee._id,
+        personalDetails: {
+          name: employee.personalDetails?.name,
+          email: employee.personalDetails?.email,
+          contactNo: employee.personalDetails?.contactNo,
         },
         employmentDetails: {
-          status: employee.status,
-          workSchedule: employee.workSchedule,
-          dept: employee.dept,
-          designation: employee.designation,
+          status: employee.employmentDetails?.status,
+          workSchedule: employee.employmentDetails?.workSchedule,
+          dept: employee.employmentDetails?.dept,
+          designation: employee.employmentDetails?.designation,
         },
         img: employee.img,
       })),
