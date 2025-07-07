@@ -1,9 +1,9 @@
 const express = require("express");
-const Employee = require("../models/employee.js");
+const Employee = require("../modules/employee.js");
 const router = express.Router();
 const multer = require("multer");
 
-const checkAuth = require("../middleawre/check-auth.js");
+const checkAuth = require("../middleware/check-auth.js");
 //const upload =multer({dest:'./uploads/'});
 
 //configure the way of storing file
