@@ -3,7 +3,7 @@ const Employee = require("../modules/employee.js");
 const router = express.Router();
 const multer = require("multer");
 
-const checkAuth = require("../middleware/check-auth.js");
+//const checkAuth = require("../middleware/check-auth.js");
 //const upload =multer({dest:'./uploads/'});
 
 //configure the way of storing file
@@ -43,12 +43,11 @@ router.post("/save", upload.single("img"), async (req, res) => {
     console.log("Uploaded file:", req.file); // Log the uploaded file
 
     const employee = new Employee({
-      contactDetails: {
+      personalDetails: {
         name: req.body.name,
         email: req.body.email,
         contactNo: req.body.contactNo,
       },
-
       employmentDetails: {
         status: req.body.status,
         workSchedule: req.body.workSchedule,
@@ -110,18 +109,22 @@ router.get("/profile/Email", async (req, res) => {
 
 router.get("/get", async (req, res) => {
   try {
-    const employees = await Employee.find()
-      .select("id name img post dept contactNo")
-      .exec();
+    const employees = await Employee.find().exec();
 
     const response = {
       count: employees.length,
       employees: employees.map((employee) => ({
-        id: employee._id,
-        name: employee.name,
-        post: employee.post,
-        dept: employee.dept,
-        contactNo: employee.contactNo,
+        contactDetails: {
+          name: employee.name,
+          email: employee.email,
+          contactNo: employee.contactNo,
+        },
+        employmentDetails: {
+          status: employee.status,
+          workSchedule: employee.workSchedule,
+          dept: employee.dept,
+          designation: employee.designation,
+        },
         img: employee.img,
       })),
     };

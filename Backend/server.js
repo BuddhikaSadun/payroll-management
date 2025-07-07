@@ -21,7 +21,7 @@ const salaryRoutes = require("./routes/salary");
 const leaveRoutes = require("./routes/leave");
 const userRoutes = require("./routes/basicAuth");
 */
-app.use("/emloyee", employeeRoutes);
+app.use("/employee", employeeRoutes);
 /*app.use("/salary", salaryRoutes);
 app.use("/leave", leaveRoutes);
 app.use("/basicUser", userRoutes);
