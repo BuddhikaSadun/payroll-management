@@ -15,13 +15,13 @@ app.use(cors());
 
 //import routes
 
-const profileRoutes = require("./routes/profile");
+const employeeRoutes = require("./routes/employee");
 /*
 const salaryRoutes = require("./routes/salary");
 const leaveRoutes = require("./routes/leave");
 const userRoutes = require("./routes/basicAuth");
 */
-app.use("/profile", profileRoutes);
+app.use("/emloyee", employeeRoutes);
 /*app.use("/salary", salaryRoutes);
 app.use("/leave", leaveRoutes);
 app.use("/basicUser", userRoutes);
