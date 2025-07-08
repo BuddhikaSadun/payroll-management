@@ -22,7 +22,6 @@ const profileSchema = new mongoose.Schema({
     workSchedule: { type: String }, // e.g., '9 AM - 5 PM'
     dept: {
       type: String,
-      //required : true //value is required(validation technique)
     },
     designation: {
       type: String,
