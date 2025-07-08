@@ -143,10 +143,39 @@ router.get("/get", async (req, res) => {
 //update by id
 router.put("/update/:id", async (req, res) => {
   try {
+    const updateFields = {};
+
+    // Support both nested (personalDetails: {...}) and flat (name, contactNo)
+    const name = req.body.name || req.body.personalDetails?.name;
+    const email = req.body.email || req.body.personalDetails?.email;
+    const contactNo = req.body.contactNo || req.body.personalDetails?.contactNo;
+
+    if (name) updateFields["personalDetails.name"] = name;
+    if (email) updateFields["personalDetails.email"] = email;
+    if (contactNo) updateFields["personalDetails.contactNo"] = contactNo;
+
+    const status = req.body.status || req.body.employmentDetails?.status;
+    const workSchedule =
+      req.body.workSchedule || req.body.employmentDetails?.workSchedule;
+    const dept = req.body.dept || req.body.employmentDetails?.dept;
+    const designation =
+      req.body.designation || req.body.employmentDetails?.designation;
+
+    if (status) updateFields["employmentDetails.status"] = status;
+    if (workSchedule)
+      updateFields["employmentDetails.workSchedule"] = workSchedule;
+    if (dept) updateFields["employmentDetails.dept"] = dept;
+    if (designation)
+      updateFields["employmentDetails.designation"] = designation;
+
+    if (req.file) {
+      updateFields.img = req.file.path;
+    }
+
     const updatedEmployee = await Employee.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
-      { new: true, runValidators: true } // Ensures the updated document is returned and validations are run
+      { $set: updateFields },
+      { new: true, runValidators: true }
     );
 
     if (!updatedEmployee) {
