@@ -16,7 +16,6 @@ app.use(cors());
 //import routes
 
 const employeeRoutes = require("./routes/employee");
-
 const salaryRoutes = require("./routes/salary");
 /*const leaveRoutes = require("./routes/leave");
 const userRoutes = require("./routes/basicAuth");
