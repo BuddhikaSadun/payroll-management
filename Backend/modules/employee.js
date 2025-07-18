@@ -16,7 +16,7 @@ const profileSchema = new mongoose.Schema({
   employmentDetails: {
     status: {
       type: String,
-      enum: ["active", "on leave", "resigned"],
+      enum: ["full-time", "part-time", "internship"],
       required: true,
     },
     workSchedule: { type: String }, // e.g., '9 AM - 5 PM'
