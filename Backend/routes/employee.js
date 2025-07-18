@@ -39,20 +39,23 @@ const upload = multer({
 
 router.post("/save", upload.single("img"), async (req, res) => {
   try {
-    console.log("Request body:", req.body); // Log the request body
-    console.log("Uploaded file:", req.file); // Log the uploaded file
+    console.log("Request body raw:", req.body);
+    console.log("Uploaded file:", req.file);
+
+    // Parse the nested object
+    const data = JSON.parse(req.body.data);
 
     const employee = new Employee({
       personalDetails: {
-        name: req.body.name,
-        email: req.body.email,
-        contactNo: req.body.contactNo,
+        name: data.personalDetails.name,
+        email: data.personalDetails.email,
+        contactNo: data.personalDetails.contactNo,
       },
       employmentDetails: {
-        status: req.body.status,
-        workSchedule: req.body.workSchedule,
-        dept: req.body.dept,
-        designation: req.body.designation,
+        status: data.employmentDetails.status,
+        workSchedule: data.employmentDetails.workSchedule,
+        dept: data.employmentDetails.dept,
+        designation: data.employmentDetails.designation,
       },
       img: req.file ? req.file.path : undefined,
     });
@@ -64,7 +67,7 @@ router.post("/save", upload.single("img"), async (req, res) => {
       createdEmployee: result,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to create profile",
