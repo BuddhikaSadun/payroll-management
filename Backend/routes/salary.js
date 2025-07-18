@@ -1,7 +1,7 @@
 const express = require("express");
-const Salary = require("../models/salary");
+const Salary = require("../modules/salary.js");
 const router = express.Router();
-const checkAuth = require("../middleawre/check-auth");
+const checkAuth = require("../middleaware/check-auth.js");
 
 router.post("/save", async (req, res) => {
   try {
