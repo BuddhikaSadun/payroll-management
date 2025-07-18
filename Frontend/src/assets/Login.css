@@ -1,0 +1,223 @@
+/*.signup-container {
+  border: 4px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  background-color: rgb(127, 204, 255);
+  margin: 0% 10% 0% 10%;
+  padding: 10%;
+}
+
+.background {
+  background-image: url("../assests/images/health-gradient.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-size: cover;
+  padding: 0% 0% 10% 0%;
+}
+.signup-title {
+  text-align: center;
+  font-weight: 600;
+  font-family: Times, Georgia, serif;
+  margin: 10% 10% 0% 10%;
+  width: 80%;
+  height: 50px;
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 98, 255),
+    rgb(0, 238, 255),
+    rgb(0, 98, 255)
+  );
+  background-size: 200% 100%;
+  background-position: left center;
+  transition: background-position 2s, border 2s;
+  border: 2px solid transparent;
+}
+
+.signup-title:hover {
+  background-position: right center;
+  border: 2px solid rgb(233, 233, 239);
+  animation: gradientTransition 4s linear 2s infinite;
+  border-image: linear-gradient(
+      to left,
+      rgba(233, 233, 239, 0),
+      rgb(233, 233, 239),
+      rgba(233, 233, 239, 0)
+    )
+    1;
+}
+
+@keyframes gradientTransition {
+  0% {
+    background-position: left center;
+  }
+  100% {
+    background-position: right center;
+  }
+}
+*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.background-container {
+  background-image: url("./images/health-gradient.jpg");
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the background image */
+  background-repeat: repeat; /* Prevents tiling */
+  height: 100vh; /* Sets the height to the viewport height */
+}
+.title {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 500;
+}
+.subTitle {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+.wrapper {
+  background-color: white;
+  margin: 0px 120px 0px 120px;
+  border: 4px solid rgb(94, 89, 239);
+  border-radius: 10px;
+  padding: 50px;
+}
+/* Form Container */
+.form-container {
+  gap: 1.5rem; /* Equivalent to space-y-6 */
+}
+
+/* Input Container */
+.input-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* Label Styling */
+.input-label {
+  display: block;
+  font-size: 0.875rem; /* Equivalent to text-sm */
+  font-weight: 500; /* Medium font */
+  color: #4b5563; /* Equivalent to text-gray-700 */
+}
+
+/* Input Styling */
+.input-field {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 1.5rem; /* px-6 py-2 */
+  border: 1px solid #d1d5db; /* Default border */
+  border-radius: 0.5rem; /* rounded-lg */
+  color: #1f2937; /* Equivalent to text-gray-800 */
+  font-size: 1rem; /* Optional */
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #6366f1; /* Equivalent to focus:border-indigo-500 */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5); /* Equivalent to focus:ring-indigo-500 */
+}
+
+/* Button Styling */
+.submit-button {
+  width: 100%;
+  background-color: #4f46e5; /* Equivalent to bg-indigo-600 */
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 0; /* py-2 */
+  margin-top: 40px;
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #4338ca; /* Equivalent to hover:bg-indigo-700 */
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5); /* Equivalent to focus:ring-indigo-500 */
+}
+
+.toggle-link {
+  cursor: pointer;
+  font-weight: bolder;
+  text-decoration: underline;
+}

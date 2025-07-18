@@ -1,0 +1,110 @@
+.leave-container {
+  border: 4px black solid;
+  margin: 10px 80px;
+  padding: 50px;
+}
+
+.leave-container {
+  max-width: 600px; /* Center the form and limit its width */
+  margin: 20px auto; /* Center horizontally */
+  padding: 40px; /* Add spacing inside the container */
+  border: 2px solid #82c5e9; /* Use a softer border color */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  background-color: #f9f9f9; /* Light background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.leave-container h2 {
+  font-size: 24px; /* Larger font for the title */
+  color: #333; /* Neutral, readable text color */
+  text-align: center; /* Center the title */
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.input-container {
+  margin-bottom: 20px; /* Space between form fields */
+}
+
+.input-label {
+  display: block; /* Make labels appear above inputs */
+  margin-bottom: 5px; /* Space between label and input */
+  font-size: 16px;
+  font-weight: 500;
+  color: #555; /* Slightly muted color for labels */
+}
+
+.input-field,
+select {
+  width: 100%; /* Full width input fields */
+  padding: 10px; /* Add padding for better UX */
+  font-size: 14px;
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 5px; /* Rounded inputs */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.input-field:focus,
+select:focus {
+  border-color: #5e7adf; /* Highlighted border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Subtle glow effect */
+}
+
+.ant-picker, /* DatePicker styling */
+  .ant-picker-focused {
+  width: 100%;
+  border-radius: 5px;
+}
+
+input[type="button"] {
+  display: inline-block;
+  width: 100%; /* Full width submit button */
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff; /* White text for contrast */
+  background-color: #607dfe; /* Primary green color */
+  border: none;
+  border-radius: 5px; /* Rounded button */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+input[type="button"]:hover {
+  background-color: #0823d8; /* Slightly darker on hover */
+}
+.submit-btn {
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #1890ff, #40a9ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect */
+.submit-btn:hover {
+  background: linear-gradient(135deg, #40a9ff, #69c0ff);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .leave-container {
+    padding: 20px; /* Reduce padding on smaller screens */
+    margin: 10px;
+  }
+
+  .input-label {
+    font-size: 14px; /* Adjust label size for mobile */
+  }
+
+  input[type="button"] {
+    font-size: 14px; /* Adjust button size for mobile */
+  }
+}

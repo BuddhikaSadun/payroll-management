@@ -1,0 +1,52 @@
+/*.empreg {
+  font-family: cursive;
+  font-weight: 800;
+  font-size: 50px;
+}
+
+.container {
+  background-color: rgb(110, 244, 244);
+  margin-bottom: 30%;
+
+  margin: 10%;
+  margin-top: 5%;
+  border-radius: 25px;
+  padding: 30px;
+}
+.container:hover {
+  opacity: 0.8;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+td {
+  color: rgb(239, 76, 6);
+  font-size: larger;
+  font-family: monospace;
+}
+nav {
+  font-size: larger;
+  font-weight: 600;
+}
+.profilePic {
+  width: 30%;
+}
+
+img {
+  padding: 0% 0% 0% 40%;
+}
+
+#home {
+  margin-left: 80%;
+}
+
+.margin {
+  padding-top: 7%;
+}
+.exam {
+  color: rgb(250, 247, 247);
+}
+**/
+
