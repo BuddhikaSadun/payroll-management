@@ -1,0 +1,105 @@
+/* Leave.css */
+.leave-background {
+  background-image: url("./images/bg.png");
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  height: 100vh; /* Sets the height to the viewport height */
+}
+/* Full-width container */
+.leave-container {
+  margin: 10px auto;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+.ant-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding: 16px;
+}
+
+.ant-table-tbody > tr > td {
+  font-size: 16px;
+  text-align: center;
+  padding: 14px;
+}
+
+/* Fix header for large tables */
+.ant-table-thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Buttons */
+.ant-btn {
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 8px;
+}
+
+.ant-btn-primary {
+  background: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover {
+  background: #40a9ff;
+  border-color: #40a9ff;
+}
+
+/* Modal */
+.ant-modal-content {
+  border-radius: 12px;
+  padding: 16px;
+  margin: auto;
+}
+
+.ant-modal-header {
+  background: #1890ff;
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.ant-modal-title {
+  color: white;
+  font-size: 20px;
+}
+
+.delete-btn {
+  width: 120px; /* Adjust width */
+  height: 40px; /* Adjust height */
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #ff4d4f;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #ff7875; /* Lighter red on hover */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .leave-container {
+    width: 95%;
+  }
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
