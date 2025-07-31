@@ -1,50 +1,65 @@
 const express = require("express");
 const Salary = require("../modules/salary.js");
+const Employee = require("../modules/employee.js");
 const router = express.Router();
 const checkAuth = require("../middleaware/check-auth.js");
 
 router.post("/save", async (req, res) => {
   try {
-    // Create a new Salary instance
-    const newSalary = new Salary(req.body);
+    const { empId, baseSalary, leaveDays = 0, bonuses = 0, payDate } = req.body;
 
-    // Save to the database
-    await newSalary.save();
+    // Calculate net salary on server
+    const workingDaysPerMonth = 22;
+    const leaveDeduction = (baseSalary / workingDaysPerMonth) * leaveDays;
+    const netSalary = baseSalary + bonuses - leaveDeduction;
+
+    const salary = new Salary({
+      empId,
+      payDate,
+      baseSalary,
+      leaveDays,
+      bonuses,
+      netSalary,
+    });
+
+    const saved = await salary.save();
 
     res.status(201).json({
-      success: "Salary saved successfully",
-      createdSalary: {
-        baseSalary: newSalary.baseSalary,
-        overtimeHours: newSalary.overtimeHours,
-        bonuses: newSalary.bonuses,
-        deductions: newSalary.deductions,
-        netSalary: newSalary.netSalary,
-        payDate: newSalary.payDate,
-      },
+      message: "Salary record saved successfully",
+      salary: saved,
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      error: err.message || "Failed to save salary record",
-    });
+    console.error("Salary save failed:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+// Get all salaries
+router.get("/", async (req, res) => {
+  try {
+    const salaries = await Salary.find().populate(
+      "empId",
+      "personalDetails.name"
+    ); // adjust field as needed
+    res.status(200).json({ salaries });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:empId", async (req, res) => {
   try {
-    // Fetch all salary records with employee details
-    const salaries = await Salary.find().exec();
+    const { empId } = req.params;
+    const salaries = await Salary.find({ empId }).populate("empId").exec();
 
     // Construct response
     const response = {
       count: salaries.length,
       salaries: salaries.map((salary) => ({
         _id: salary._id,
-        //employeeId: salary.employeeId, // Populated employee details
+        empId: salary.empId,
         baseSalary: salary.baseSalary,
-        overtimeHours: salary.overtimeHours,
+        leaveDays: salary.leaveDays,
         bonuses: salary.bonuses,
-        deductions: salary.deductions,
         netSalary: salary.netSalary,
         payDate: salary.payDate,
       })),
@@ -59,24 +74,48 @@ router.get("/", async (req, res) => {
   }
 });
 
-//update by id
-router.put("/update/:id", checkAuth, (req, res) => {
-  Salary.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    (err, salary) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+router.get("/email/:email", async (req, res) => {
+  const { email } = req.params;
 
-      return res.status(200).json({
-        success: "Updated successfully",
-        salary,
-      });
+  try {
+    // 1. Find employee by email
+    const employee = await Employee.findOne({ "personalDetails.email": email });
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
     }
-  );
+
+    // 2. Find salaries for that employee
+    const salaries = await Salary.find({ empId: employee._id });
+
+    res.status(200).json({ salaries });
+  } catch (err) {
+    console.error("Error fetching salary by email:", err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// routes/salary.js or employee.js
+router.put("/salary/update/:id", async (req, res) => {
+  try {
+    const updatedSalary = await Salary.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    if (!updatedSalary) {
+      return res.status(404).json({ error: "Salary record not found" });
+    }
+
+    res.status(200).json({
+      success: "Salary updated successfully",
+      salary: updatedSalary,
+    });
+  } catch (err) {
+    console.error("Update salary error:", err);
+    res.status(500).json({ error: "Failed to update salary" });
+  }
 });
 
 //delete by id
