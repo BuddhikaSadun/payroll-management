@@ -91,12 +91,12 @@ router.get("get/:id", async (req, res) => {
   }
 });
 
-// get a single staff profile by email
-router.get("/profile/Email", async (req, res) => {
-  const { email } = req.query;
+// Get a single staff profile by email
+router.get("/profile/:email", async (req, res) => {
+  const { email } = req.params;
 
   try {
-    const employee = await Employee.findOne({ email }); // Find by email
+    const employee = await Employee.findOne({ "personalDetails.email": email }); // ✅ correct path
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
