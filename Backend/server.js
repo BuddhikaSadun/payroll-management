@@ -17,14 +17,14 @@ app.use(cors());
 
 const employeeRoutes = require("./routes/employee");
 const salaryRoutes = require("./routes/salary");
-/*const leaveRoutes = require("./routes/leave");
+const leaveRoutes = require("./routes/leave");
 const userRoutes = require("./routes/basicAuth");
-*/
+
 app.use("/employee", employeeRoutes);
 app.use("/salary", salaryRoutes);
-/*app.use("/leave", leaveRoutes);
+app.use("/leave", leaveRoutes);
 app.use("/basicUser", userRoutes);
-*/
+
 const port = 8000;
 
 const url =
