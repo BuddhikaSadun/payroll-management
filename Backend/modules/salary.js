@@ -1,20 +1,15 @@
 const mongoose = require("mongoose");
 const SalarySchema = new mongoose.Schema({
+  empId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Employee", // This should match your Employee model name
+    required: true,
+  },
   baseSalary: { type: Number, required: true },
-  overtimeHours: { type: Number },
-  bonuses: { type: Number },
-  deductions: { type: Number },
+  leaveDays: { type: Number, default: 0 },
+  bonuses: { type: Number, default: 0 },
   netSalary: { type: Number },
   payDate: { type: Date, default: Date.now },
-});
-
-SalarySchema.pre("save", function (next) {
-  this.netSalary =
-    this.baseSalary +
-    this.bonuses -
-    this.deductions +
-    (this.overtimeHours * this.baseSalary) / 160; // Assuming 160 work hours/month
-  next();
 });
 
 const Salary = mongoose.model("Salary", SalarySchema);
