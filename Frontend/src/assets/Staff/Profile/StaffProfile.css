@@ -1,0 +1,116 @@
+* {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.staff-profile-container {
+  background-color: rgb(220, 246, 246);
+}
+.staff-card {
+  background-color: rgb(255, 255, 255);
+  border: 3px solid rgb(52, 247, 247);
+  border-radius: 10px;
+  margin: 2% 10%;
+  padding: 100px;
+}
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.default-profile-icon {
+  font-size: 120px;
+  color: #bbb;
+}
+
+/* Input Container */
+.input-container {
+  flex-basis: 50%; /* Each container takes up 50% of the row */
+  flex-grow: 0; /* Prevents containers from growing beyond 50% */
+  flex-shrink: 0; /* Prevents containers from shrinking below 50% */
+}
+
+/* Label Styling */
+.input-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: #08090a;
+}
+
+/* Input Styling */
+.input-field {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+}
+
+.input-row {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 10px;
+}
+.input-container:first-child {
+  flex: 2;
+}
+
+.container:hover {
+  opacity: 0.8;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.salary-leave-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding-bottom: 50px;
+  margin: 40px 10%;
+}
+
+.leaveCard {
+  border: 3px solid rgb(85, 127, 226);
+  border-radius: 10px;
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.salaryCard {
+  border: 3px solid rgb(85, 127, 226);
+  border-radius: 10px;
+  flex: 2;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .salary-leave-wrapper {
+    flex-direction: column;
+  }
+
+  .leaveCard,
+  .salaryCard {
+    width: 100%;
+  }
+}
