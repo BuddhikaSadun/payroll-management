@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Table, message, DatePicker } from "antd";
-import dayjs from "dayjs";
-
-import "../../../assets/Admin/Leave/AdminLeave.css"; // Your CSS file here
-import NavBar from "../../NavBar";
 import { Select } from "antd";
 const { Option } = Select;
+
+import "../../../assets/Admin/Leave/AdminLeave.css";
+import NavBar from "../../NavBar";
 
 function AdminLeave() {
   const [loading, setLoading] = useState(false);
@@ -109,35 +108,38 @@ function AdminLeave() {
   ];
 
   return (
-    <div className="leave-background">
+    <div>
       <NavBar />
-      <div className="leave-container">
-        <h2 style={{ textAlign: "center" }}>Employee Leave Requests</h2>
-        <div
-          style={{
-            marginTop: 20,
-            marginBottom: 30,
-            display: "flex",
-            justifyContent: "flex-start",
-          }}
-        >
-          <DatePicker
-            onChange={handleMonthChange}
-            picker="month"
-            placeholder="Filter by Month"
-            allowClear
+      <div className="leave-bg">
+        <h2 style={{ textAlign: "center", paddingBottom: "40px" }}>
+          Employee Leave Requests
+        </h2>
+        <div className="leave-container">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              padding: "40px",
+            }}
+          >
+            <DatePicker
+              onChange={handleMonthChange}
+              picker="month"
+              placeholder="Filter by Month"
+              allowClear
+            />
+          </div>
+
+          <Table
+            loading={loading}
+            dataSource={filteredData.map((leave) => ({
+              ...leave,
+              key: leave._id,
+              employeeName: leave.employeeName || "N/A",
+            }))}
+            columns={LeaveColumns}
           />
         </div>
-
-        <Table
-          loading={loading}
-          dataSource={filteredData.map((leave) => ({
-            ...leave,
-            key: leave._id,
-            employeeName: leave.employeeName || "N/A",
-          }))}
-          columns={LeaveColumns}
-        />
       </div>
     </div>
   );

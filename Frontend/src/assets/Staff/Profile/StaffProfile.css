@@ -89,7 +89,7 @@
 }
 
 .leaveCard {
-  border: 3px solid rgb(85, 127, 226);
+  border: 3px solid rgb(52, 247, 247);
   border-radius: 10px;
   flex: 1;
   padding: 20px;
@@ -97,7 +97,7 @@
 }
 
 .salaryCard {
-  border: 3px solid rgb(85, 127, 226);
+  border: 3px solid rgb(52, 247, 247);
   border-radius: 10px;
   flex: 2;
   padding: 20px;

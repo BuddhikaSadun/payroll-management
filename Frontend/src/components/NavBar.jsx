@@ -20,7 +20,7 @@ function NavBar() {
           <Link to="/admin/salary/all">Salary</Link>
         </li>
         <li className="logout-btn" onClick={LogOutHandler}>
-          <Link to="/">Log out</Link>
+          <Link to="/login">Log out</Link>
         </li>
       </ul>
     </div>

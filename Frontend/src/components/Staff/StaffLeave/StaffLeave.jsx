@@ -60,31 +60,43 @@ function StaffLeave() {
   const LeaveColumns = [
     {
       title: "Employee Name",
-      dataIndex: "employeeName", // fix here
+      dataIndex: "employeeName",
       key: "employeeName",
+      render: (text) => <span style={{ fontSize: "16px" }}>{text}</span>,
     },
     {
       title: "Leave Type",
       dataIndex: "leaveType",
       key: "leaveType",
+      render: (text) => <span style={{ fontSize: "16px" }}>{text}</span>,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) => (
+        <span style={{ fontSize: "16px", fontWeight: "normal" }}>
+          {new Date(date).toLocaleDateString()}
+        </span>
+      ),
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (date) => new Date(date).toLocaleDateString(),
+      render: (date) => (
+        <span style={{ fontSize: "16px" }}>
+          {new Date(date).toLocaleDateString()}
+        </span>
+      ),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => status || "Pending",
+      render: (status) => (
+        <span style={{ fontSize: "16px" }}>{status || "Pending"}</span>
+      ),
       width: 200,
     },
   ];

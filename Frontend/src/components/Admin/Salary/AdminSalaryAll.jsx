@@ -60,10 +60,11 @@ export default function SalaryAll() {
   ];
 
   return (
-    <div className="salary-background">
+    <div>
       <NavBar />
       <div className="salary-container" style={{ padding: "20px" }}>
-        <h2>All Salaries</h2>
+        <h2 style={{ textAlign: "center" }}>All Salaries</h2>
+
         <Table
           loading={loading}
           pagination={{ pageSize: 10 }}

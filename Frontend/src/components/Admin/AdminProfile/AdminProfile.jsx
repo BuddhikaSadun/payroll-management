@@ -50,6 +50,9 @@ const AdminProfile = () => {
     try {
       await axios.delete(`http://localhost:8000/employee/delete/${id}`);
       alert("Successfully deleted!");
+      localStorage.removeItem("email");
+      localStorage.removeItem("position");
+      localStorage.removeItem("user");
       fetchProfiles(); // Refresh the profile list after deletion
     } catch (error) {
       console.error(
@@ -186,6 +189,83 @@ const AdminProfile = () => {
     email: profile.personalDetails?.email,
     status: profile.employmentDetails?.status,
   }));
+  const styles = {
+    container: {
+      padding: "60px 50px",
+      minHeight: "100vh",
+      //background: `url(${AdminBg}) center/cover no-repeat`,
+      backgroundSize: "cover",
+    },
+    wrapper: {
+      maxWidth: "990px",
+      margin: "0 auto",
+    },
+    title: {
+      fontSize: "40px",
+      fontWeight: "bold",
+      marginBottom: "30px",
+      color: "#1E2330",
+      textAlign: "left",
+    },
+    topActions: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "40px",
+    },
+    buttonsWrapper: {
+      display: "flex",
+      gap: "12px",
+      alignItems: "center",
+    },
+    actionButton: (hover) => ({
+      backgroundColor: hover ? "#f1f4fa" : "#F7F9FB",
+      padding: "10px 20px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      fontSize: "14px",
+      fontWeight: "bold",
+      transition: "0.3s",
+      userSelect: "none",
+      border: "1px solid #e4e7ec",
+    }),
+    profileRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: "25px",
+      marginBottom: "30px",
+    },
+    name: {
+      fontSize: "28px",
+      fontWeight: 600,
+      color: "#1E2330",
+      margin: 0,
+    },
+    positionTag: {
+      marginTop: "8px",
+      padding: "4px 10px",
+      fontSize: "12px",
+      background: "#e6f4ff",
+      borderRadius: "6px",
+    },
+    sectionTitle: {
+      fontSize: "22px",
+      fontWeight: 600,
+      marginBottom: "20px",
+    },
+    frameImage: {
+      width: "100%",
+      margin: "40px 0",
+    },
+    modalContentWrapper: {
+      // background: `url(${BgWave}) center/cover no-repeat`,
+      padding: "10px 0 40px",
+      borderRadius: "12px",
+    },
+  };
 
   return (
     <div className="admin-profile-container">

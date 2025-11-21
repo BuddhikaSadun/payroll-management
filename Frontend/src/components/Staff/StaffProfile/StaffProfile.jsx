@@ -16,6 +16,7 @@ function StaffProfile() {
     dept: "",
     post: "",
     img: "",
+    todayDate: "",
   });
 
   useEffect(() => {
@@ -33,12 +34,13 @@ function StaffProfile() {
       const employee = res.data.employee;
 
       setStaffData({
-        name: employee.personalDetails.name,
-        email: employee.personalDetails.email,
-        contactNo: employee.personalDetails.contactNo,
-        dept: employee.employmentDetails.dept,
-        post: employee.employmentDetails.designation,
-        status: employee.employmentDetails.status,
+        name: employee.personalDetails?.name,
+        email: employee.personalDetails?.email,
+        contactNo: employee.personalDetails?.contactNo,
+        dept: employee.employmentDetails?.dept,
+        post: employee.employmentDetails?.designation,
+        status: employee.employmentDetails?.status,
+        todayDate: employee.todayDate,
         img: employee.img,
       });
     } catch (error) {
@@ -48,9 +50,9 @@ function StaffProfile() {
 
   return (
     <div className="staff-profile-container">
-      <Header />
+      <h1 style={{ textAlign: "center" }}>Employee Profile</h1>
       <div className="staff-card">
-        <h2>Staff Profile</h2>
+        <h2>Employee Details</h2>
         <div className="profile-image-container">
           {staffData.img ? (
             <img src={staffData.img} alt="Employee" className="profile-image" />
@@ -127,6 +129,7 @@ function StaffProfile() {
             <input
               type="date"
               id="joinedDate"
+              value={staffData.todayDate || "N/A"}
               className="input-field"
               disabled={true}
             />

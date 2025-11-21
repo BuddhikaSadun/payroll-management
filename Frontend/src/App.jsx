@@ -7,7 +7,7 @@ import AddStaffLeave from "./components/Staff/StaffLeave/AddStaffLeave.jsx";
 import StaffProfile from "./components/Staff/StaffProfile/StaffProfile.jsx";
 import StaffSalary from "./components/Staff/StaffSalary/StaffSalary.jsx";
 import StaffLeave from "./components/Staff/StaffLeave/StaffLeave.jsx";
-
+import Intro from "./components/Intro.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,7 +16,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Admin routes */}
-          <Route path="/" element={<Login />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Intro />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/salary/all" element={<Salary />} />
           <Route path="/admin/leave" element={<Leave />} />
