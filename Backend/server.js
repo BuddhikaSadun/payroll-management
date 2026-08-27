@@ -1,25 +1,32 @@
+const dns = require("dns");
+MONGO_URI =
+  "mongodb+srv://buddhikaSadun:zKSpkkT4R2FDJF5y@clusterdemo.aqzosav.mongodb.net/";
+// Use Google DNS for MongoDB Atlas SRV lookup
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 
-//import multer
-var multer = require("multer");
-
+// Middleware
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-//import routes
-
+// Import routes
 const employeeRoutes = require("./routes/employee");
 const salaryRoutes = require("./routes/salary");
 const leaveRoutes = require("./routes/leave");
 const userRoutes = require("./routes/basicAuth");
 
+// Routes
 app.use("/employee", employeeRoutes);
 app.use("/salary", salaryRoutes);
 app.use("/leave", leaveRoutes);
@@ -27,27 +34,20 @@ app.use("/basicUser", userRoutes);
 
 const port = 8000;
 
-const url =
-  "mongodb+srv://buddhikaSadun:sadun123@clusterdemo.aqzosav.mongodb.net/hospital_db?retryWrites=true&w=majority";
-
-// Set the strictQuery option to prepare for future changes
+// Mongoose configuration
 mongoose.set("strictQuery", true);
 
-//connect the database
+// Connect to MongoDB
 mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected!!");
   })
   .catch((err) => {
-    console.log(err);
+    console.error("MongoDB connection error:", err.message);
   });
 
-mongoose.Promise = global.Promise;
-
+// Start server
 app.listen(port, () => {
   console.log(`Backend is running on: ${port}`);
 });
