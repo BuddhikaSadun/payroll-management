@@ -9,6 +9,7 @@ import StaffSalary from "./components/Staff/StaffSalary/StaffSalary.jsx";
 import StaffLeave from "./components/Staff/StaffLeave/StaffLeave.jsx";
 import Intro from "./components/Intro.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./components/Register.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           {/* Admin routes */}
 
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Intro />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/salary/all" element={<Salary />} />

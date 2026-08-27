@@ -7,6 +7,7 @@ import leaveImg from "../assets/images/leave.png";
 import salaryImg from "../assets/images/salary.png";
 import staffMgmtImg from "../assets/images/staff.png";
 import { motion } from "framer-motion";
+import Header from "./Header";
 function Intro() {
   const navigate = useNavigate();
 
@@ -51,6 +52,7 @@ function Intro() {
         fontFamily: "Arial, sans-serif",
       }}
     >
+      <Header/>
       <h1
         style={{
           textAlign: "center",

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import bg from "../assets/images/bg.png";
+import Header from "./Header";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,22 +29,22 @@ function Login() {
       localStorage.setItem("user", JSON.stringify({ email, position }));
 
       Swal.fire({
-        title: "Success",
-        type: "success",
-        text: `Sucessfully logged in as ${position}!`,
-      });
+    title: "Success",
+    icon: "success",
+    text: `Successfully logged in as ${position}!`,
+});
 
-      setTimeout(() => {
-        if (position == "Admin") navigate("/admin/profile");
-        if (position == "Staff") navigate("/staff/profile");
-      }, 1000);
+      if (position === "Admin") {
+    navigate("/admin/profile");
+} else if (position === "Staff") {
+    navigate("/staff/profile");
+}
     } catch (error) {
       console.error(error);
 
       Swal.fire({
         icon: "error",
         title: "Error",
-        type: "error",
         text: "Error in logging!",
         position: "center",
         showConfirmButton: false,
@@ -51,171 +52,143 @@ function Login() {
       });
     }
   };
-  const signUpHandler = async (data) => {
-    data.preventDefault();
-    try {
-      await axios.post("http://localhost:8000/basicUser/createUser", {
-        email,
-        password,
-        position,
-      });
-
-      Swal.fire({
-        title: "Success",
-        icon: "success",
-        text: "Successfully signed up! Please log in.",
-      });
-
-      // Reset fields and switch to login
-      setEmail("");
-      setPassword("");
-      setPosition("");
-      setIsSignUp(false);
-    } catch (error) {
-      console.error(error.message);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error in signing up!",
-        position: "center",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    }
-  };
+ 
   return (
     <div
-      style={{
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "repeat",
-        height: "100vh",
-        padding: "20px",
-      }}
-    >
-      <h2
-        style={{
-          textAlign: "center",
-          fontSize: "50px",
-          fontWeight: 500,
-        }}
-      >
-        Staff Management System
-      </h2>
-
-      <div
-        style={{
-          backgroundColor: "white",
-          margin: "0px 120px",
-          border: "4px solid rgb(94, 89, 239)",
-          borderRadius: "10px",
-          padding: "50px",
-        }}
-      >
-        {isSignUp ? (
-          <>
-            <h3
+          style={{
+            minHeight: "100vh",
+            background: "linear-gradient(105deg, #4f46e5, #0000, #60a5fa)",
+            fontFamily: "Arial, sans-serif",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+            <Header/>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "650px",
+              backgroundColor: "#ffffff",
+              marginTop: "50px",
+              alignSelf: "center",
+              padding: "35px",
+              borderRadius: "12px",
+              boxShadow: "0 8px 25px rgba(0, 0, 0, 0.12)",
+            }}
+          >
+            {/* Title */}
+            <h2
               style={{
                 textAlign: "center",
-                fontSize: "30px",
-                fontWeight: 600,
-                fontFamily: "Times New Roman, Times, serif",
+                marginBottom: "30px",
+                color: "#1f2937",
+                fontSize: "28px",
+                fontWeight: "700",
               }}
             >
-              Sign Up
-            </h3>
-
-            <form
-              onSubmit={signUpHandler}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-              }}
-            >
+              Login
+            </h2>
+    
+            <form onSubmit={loginHandler}>
               {/* Email */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
+              <div style={{ marginBottom: "20px" }}>
                 <label
+                  htmlFor="email"
                   style={{
                     display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
+                    marginBottom: "7px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    color: "#374151",
                   }}
                 >
                   Email
                 </label>
+    
                 <input
+                  id="email"
                   type="email"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                   style={{
-                    marginTop: "0.5rem",
                     width: "100%",
-                    padding: "0.5rem 1.5rem",
+                    boxSizing: "border-box",
+                    padding: "12px 14px",
                     border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
+                    borderRadius: "7px",
+                    fontSize: "15px",
+                    outline: "none",
                   }}
                 />
               </div>
-
+    
               {/* Password */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
+              <div style={{ marginBottom: "20px" }}>
                 <label
+                  htmlFor="password"
                   style={{
                     display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
+                    marginBottom: "7px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    color: "#374151",
                   }}
                 >
                   Password
                 </label>
+    
                 <input
+                  id="password"
                   type="password"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                   style={{
-                    marginTop: "0.5rem",
                     width: "100%",
-                    padding: "0.5rem 1.5rem",
+                    boxSizing: "border-box",
+                    padding: "12px 14px",
                     border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
+                    borderRadius: "7px",
+                    fontSize: "15px",
+                    outline: "none",
                   }}
                 />
               </div>
-
+    
               {/* Position */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
+              <div style={{ marginBottom: "25px" }}>
                 <label
+                  htmlFor="position"
                   style={{
                     display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
+                    marginBottom: "7px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    color: "#374151",
                   }}
                 >
                   Position
                 </label>
+    
                 <select
+                  id="position"
                   value={position}
                   onChange={(e) => setPosition(e.target.value)}
+                  required
                   style={{
-                    marginTop: "0.5rem",
                     width: "100%",
-                    padding: "0.5rem 1.5rem",
+                    boxSizing: "border-box",
+                    padding: "12px 14px",
                     border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
+                    borderRadius: "7px",
+                    fontSize: "15px",
+                    backgroundColor: "#ffffff",
+                    color: "#374151",
+                    outline: "none",
+                    cursor: "pointer",
                   }}
                 >
                   <option value="">Select Position</option>
@@ -223,191 +196,51 @@ function Login() {
                   <option value="Staff">Staff</option>
                 </select>
               </div>
-
+    
               {/* Submit Button */}
               <button
                 type="submit"
                 style={{
-                  display: "block", // take its own line
-                  width: "180px", // fixed width, adjust as needed
-                  margin: "40px auto 0 auto", // top margin 40px, centered horizontally
+                  width: "100%",
+                  padding: "12px",
                   backgroundColor: "#4f46e5",
-                  color: "white",
-                  fontWeight: "bold",
-                  padding: "12px 0", // smaller vertical padding
-                  borderRadius: "0.5rem",
-                  cursor: "pointer",
+                  color: "#ffffff",
+                  fontWeight: "600",
+                  fontSize: "16px",
                   border: "none",
-                  textAlign: "center",
-                  fontSize: "16px", // optional, adjust text size
+                  borderRadius: "7px",
+                  cursor: "pointer",
+                  transition: "background-color 0.2s ease",
                 }}
               >
-                Sign Up
+                Login
               </button>
             </form>
-
-            <p style={{ textAlign: "center", marginTop: "20px" }}>
-              Already have an account?{" "}
-              <span
-                style={{
-                  cursor: "pointer",
-                  fontWeight: "bolder",
-                  textDecoration: "underline",
-                }}
-                onClick={() => setIsSignUp(false)}
-              >
-                Log in
-              </span>
-            </p>
-          </>
-        ) : (
-          <>
-            <h3
+    
+            {/* Login Link */}
+            <p
               style={{
                 textAlign: "center",
-                fontSize: "30px",
-                fontWeight: 600,
-                fontFamily: "Times New Roman, Times, serif",
+                marginTop: "25px",
+                marginBottom: "0",
+                color: "#6b7280",
+                fontSize: "14px",
               }}
             >
-              Login
-            </h3>
-
-            <form
-              onSubmit={loginHandler}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-              }}
-            >
-              {/* Email */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
-                  }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{
-                    marginTop: "0.5rem",
-                    width: "100%",
-                    padding: "0.5rem 1.5rem",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
-                  }}
-                />
-              </div>
-
-              {/* Password */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
-                  }}
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    marginTop: "0.5rem",
-                    width: "100%",
-                    padding: "0.5rem 1.5rem",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
-                  }}
-                />
-              </div>
-
-              {/* Position */}
-              <div style={{ paddingTop: 5, paddingBottom: 5 }}>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "#4b5563",
-                  }}
-                >
-                  Position
-                </label>
-                <select
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  style={{
-                    marginTop: "0.5rem",
-                    width: "100%",
-                    padding: "0.5rem 1.5rem",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "0.5rem",
-                    fontSize: "1rem",
-                    color: "#1f2937",
-                  }}
-                >
-                  <option value="">Select Position</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Staff">Staff</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
+              Not registered?{" "}
+              <Link
+                to="/register"
                 style={{
-                  display: "block", // take its own line
-                  width: "180px", // fixed width, adjust as needed
-                  margin: "40px auto 0 auto", // top margin 40px, centered horizontally
-                  backgroundColor: "#4f46e5",
-                  color: "white",
-                  fontWeight: "bold",
-                  padding: "12px 0", // smaller vertical padding
-                  borderRadius: "0.5rem",
-                  cursor: "pointer",
-                  border: "none",
-                  textAlign: "center",
-                  fontSize: "16px", // optional, adjust text size
+                  color: "#4f46e5",
+                  fontWeight: "700",
+                  textDecoration: "none",
                 }}
               >
-                Log In
-              </button>
-            </form>
-
-            <p style={{ textAlign: "center", marginTop: "20px" }}>
-              Not signed up yet?{" "}
-              <span
-                style={{
-                  cursor: "pointer",
-                  fontWeight: "bolder",
-                  textDecoration: "underline",
-                }}
-                onClick={() => setIsSignUp(true)}
-              >
-                Sign up
-              </span>
+                Register
+              </Link>
             </p>
-          </>
-        )}
-      </div>
-    </div>
+          </div>
+        </div>
   );
 }
 export default Login;
