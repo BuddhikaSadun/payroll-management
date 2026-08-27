@@ -1,6 +1,5 @@
 const dns = require("dns");
-MONGO_URI =
-  "mongodb+srv://buddhikaSadun:zKSpkkT4R2FDJF5y@clusterdemo.aqzosav.mongodb.net/";
+
 // Use Google DNS for MongoDB Atlas SRV lookup
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
