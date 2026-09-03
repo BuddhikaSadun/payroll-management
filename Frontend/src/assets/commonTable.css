@@ -1,0 +1,113 @@
+/* ========================================
+   COMMON ANT DESIGN TABLE
+   ======================================== */
+
+.staff-table {
+  width: 100%;
+}
+
+/* Table container */
+.staff-table .ant-table {
+  width: 100%;
+  border: none !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Remove outer border */
+.staff-table .ant-table-container {
+  border: none !important;
+}
+
+/* Remove all cell borders */
+.staff-table .ant-table-thead > tr > th,
+.staff-table .ant-table-tbody > tr > td {
+  border: none !important;
+}
+
+/* Remove Ant Design header separator */
+.staff-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+/* ========================================
+   TABLE HEADER
+   ======================================== */
+
+.staff-table .ant-table-thead > tr > th {
+  background-color: #f1f5f9 !important;
+  color: #1f2937 !important;
+
+  font-size: 13px !important;
+  font-weight: 600;
+
+  text-align: center;
+
+  padding: 12px 10px;
+}
+
+/* ========================================
+   TABLE BODY
+   ======================================== */
+
+.staff-table .ant-table-tbody > tr > td {
+  background-color: #ffffff !important;
+
+  color: #374151;
+
+  font-size: 13px !important;
+
+  text-align: center;
+
+  padding: 11px 10px;
+}
+
+/* ========================================
+   ROW HOVER
+   ======================================== */
+
+.staff-table .ant-table-tbody > tr:hover > td {
+  background-color: #f8fafc !important;
+}
+
+/* ========================================
+   PAGINATION
+   ======================================== */
+
+.staff-table + .ant-pagination {
+  margin-top: 15px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .staff-table .ant-table-thead > tr > th {
+    font-size: 12px !important;
+    padding: 10px 8px;
+  }
+
+  .staff-table .ant-table-tbody > tr > td {
+    font-size: 12px !important;
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .staff-table {
+    overflow-x: auto;
+  }
+
+  .staff-table .ant-table-thead > tr > th {
+    font-size: 11px !important;
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+
+  .staff-table .ant-table-tbody > tr > td {
+    font-size: 11px !important;
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+}

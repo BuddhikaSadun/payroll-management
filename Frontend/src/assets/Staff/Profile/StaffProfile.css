@@ -1,15 +1,12 @@
-* {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
 .staff-profile-container {
   background-color: rgb(220, 246, 246);
 }
+
 .staff-card {
   background-color: rgb(255, 255, 255);
-  border: 3px solid rgb(52, 247, 247);
   border-radius: 10px;
   margin: 2% 10%;
-  padding: 100px;
+  padding: 30px 100px;
 }
 .profile-image-container {
   display: flex;
@@ -31,14 +28,12 @@
   color: #bbb;
 }
 
-/* Input Container */
 .input-container {
-  flex-basis: 50%; /* Each container takes up 50% of the row */
-  flex-grow: 0; /* Prevents containers from growing beyond 50% */
-  flex-shrink: 0; /* Prevents containers from shrinking below 50% */
+  flex-basis: 50%;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
-/* Label Styling */
 .input-label {
   display: block;
   font-size: 15px;
@@ -46,7 +41,6 @@
   color: #08090a;
 }
 
-/* Input Styling */
 .input-field {
   width: 100%;
   margin-top: 0.5rem;
@@ -87,30 +81,26 @@
   padding-bottom: 50px;
   margin: 40px 10%;
 }
-
-.leaveCard {
+.leave-card {
+  flex: 0.5;
+  background-color: #ffffff;
   border: 3px solid rgb(52, 247, 247);
   border-radius: 10px;
-  flex: 1;
   padding: 20px;
-  background-color: #ffffff;
+  box-sizing: border-box;
 }
 
-.salaryCard {
+.salary-card {
+  flex: 0.5;
+  background-color: #ffffff;
   border: 3px solid rgb(52, 247, 247);
   border-radius: 10px;
-  flex: 2;
-  padding: 20px;
-  background-color: #ffffff;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .salary-leave-wrapper {
     flex-direction: column;
-  }
-
-  .leaveCard,
-  .salaryCard {
-    width: 100%;
   }
 }
