@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
+import "../../../assets/commonTable.css";
 export default function StaffSalary() {
   const [salaryData, setSalaryData] = useState([]);
 
@@ -14,7 +15,7 @@ export default function StaffSalary() {
   const fetchSalaryByEmail = async (email) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/salary/email/${email}`
+        `http://localhost:8000/salary/email/${email}`,
       );
       console.log(response.data.salaries);
       setSalaryData(response.data.salaries);
@@ -23,9 +24,11 @@ export default function StaffSalary() {
     }
   };
   return (
-    <>
-      <h2>Salary Information</h2>
+    <div className="staff-section">
+      <h2 className="staff-section-title">Salary Information</h2>
+
       <Table
+        className="staff-table"
         dataSource={salaryData.map((salary) => ({
           ...salary,
           key: salary._id,
@@ -50,6 +53,6 @@ export default function StaffSalary() {
           },
         ]}
       />
-    </>
+    </div>
   );
 }

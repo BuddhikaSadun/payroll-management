@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Table, Button, Input, Modal } from "antd";
+import { Table, Button, Input, Modal, Drawer } from "antd";
 
 const { Search } = Input;
-import "../assets/AdminProfile.css";
+import "../../../assets/Admin/Profile/AdminProfile.css";
+import "../../../assets/Dashboard.css";
+import DashboardContent from "../../DashboardContent";
 
 import AddStaff from "./AddStaff";
 import UpdateStaff from "./UpdateStaff";
-import NavBar from "../components/NavBar";
+import NavBar from "../../NavBar";
+import Salary from "../Salary/AdminSalary";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faEdit,
+  faSearch,
+  faAdd,
+  faFileInvoiceDollar,
+} from "@fortawesome/free-solid-svg-icons";
+import { Header } from "antd/es/layout/layout";
 
 const AdminProfile = () => {
   const [profileList, setProfileList] = useState([]);
@@ -16,6 +29,9 @@ const AdminProfile = () => {
 
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isSalaryVisible, setIsSalaryVisible] = useState(false);
+
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchProfiles();
@@ -37,11 +53,14 @@ const AdminProfile = () => {
     try {
       await axios.delete(`http://localhost:8000/employee/delete/${id}`);
       alert("Successfully deleted!");
+      localStorage.removeItem("email");
+      localStorage.removeItem("position");
+      localStorage.removeItem("user");
       fetchProfiles(); // Refresh the profile list after deletion
     } catch (error) {
       console.error(
         "Error deleting profile:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
       alert("Failed to delete profile. Please try again.");
     }
@@ -51,7 +70,7 @@ const AdminProfile = () => {
     try {
       await axios.put(
         `http://localhost:8000/employee/update/${updatedProfile._id}`,
-        updatedProfile
+        updatedProfile,
       );
       alert("Profile updated successfully!");
       fetchProfiles();
@@ -59,7 +78,7 @@ const AdminProfile = () => {
     } catch (error) {
       console.error(
         "Error updating profile:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
       alert("Failed to update profile. Please try again.");
     }
@@ -71,7 +90,7 @@ const AdminProfile = () => {
       ? profileList.filter((profile) =>
           profile.personalDetails?.name
             ?.toLowerCase()
-            .includes(searchQuery.toLowerCase())
+            .includes(searchQuery.toLowerCase()),
         )
       : [];
 
@@ -109,17 +128,18 @@ const AdminProfile = () => {
       key: "action",
       align: "center",
       render: (_, record) => (
-        <div className="action-buttons">
-          <Button
-            color="danger"
-            variant="solid"
+        <div className="action-buttons-wrapper">
+          <FontAwesomeIcon
+            color="red"
+            icon={faTrash}
+            className="action-buttons"
             onClick={() => deleteHandler(record._id)}
-          >
-            Delete
-          </Button>
-          <Button
-            color="green"
-            variant="solid"
+          />
+
+          <FontAwesomeIcon
+            color="rgb(25,255,25)"
+            icon={faEdit}
+            className="action-buttons"
             onClick={() => {
               console.log("Selected Employee ID:", record._id); // 🔍 Log the ID here
               setSelectedProfile({
@@ -138,9 +158,28 @@ const AdminProfile = () => {
               setIsEditing(true);
               setIsModalVisible(true);
             }}
-          >
-            Update
-          </Button>
+          />
+          <FontAwesomeIcon
+            className="action-buttons"
+            color="orange"
+            icon={faFileInvoiceDollar}
+            onClick={() => {
+              setSelectedProfile({
+                _id: record._id,
+                personalDetails: {
+                  name: record.name,
+                  email: record.email,
+                  contactNo: record.contactNo,
+                },
+                employmentDetails: {
+                  dept: record.dept,
+                  status: record.status,
+                  designation: record.designation,
+                },
+              });
+              setIsSalaryVisible(true);
+            }}
+          />
         </div>
       ),
     },
@@ -153,23 +192,102 @@ const AdminProfile = () => {
     email: profile.personalDetails?.email,
     status: profile.employmentDetails?.status,
   }));
+  const styles = {
+    container: {
+      padding: "60px 50px",
+      minHeight: "100vh",
+      //background: `url(${AdminBg}) center/cover no-repeat`,
+      backgroundSize: "cover",
+    },
+    wrapper: {
+      maxWidth: "990px",
+      margin: "0 auto",
+    },
+    title: {
+      fontSize: "40px",
+      fontWeight: "bold",
+      marginBottom: "30px",
+      color: "#1E2330",
+      textAlign: "left",
+    },
+    topActions: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "40px",
+    },
+    buttonsWrapper: {
+      display: "flex",
+      gap: "12px",
+      alignItems: "center",
+    },
+    actionButton: (hover) => ({
+      backgroundColor: hover ? "#f1f4fa" : "#F7F9FB",
+      padding: "10px 20px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      fontSize: "14px",
+      fontWeight: "bold",
+      transition: "0.3s",
+      userSelect: "none",
+      border: "1px solid #e4e7ec",
+    }),
+    profileRow: {
+      display: "flex",
+      alignItems: "center",
+      gap: "25px",
+      marginBottom: "30px",
+    },
+    name: {
+      fontSize: "28px",
+      fontWeight: 600,
+      color: "#1E2330",
+      margin: 0,
+    },
+    positionTag: {
+      marginTop: "8px",
+      padding: "4px 10px",
+      fontSize: "12px",
+      background: "#e6f4ff",
+      borderRadius: "6px",
+    },
+    sectionTitle: {
+      fontSize: "22px",
+      fontWeight: 600,
+      marginBottom: "20px",
+    },
+    frameImage: {
+      width: "100%",
+      margin: "40px 0",
+    },
+    modalContentWrapper: {
+      // background: `url(${BgWave}) center/cover no-repeat`,
+      padding: "10px 0 40px",
+      borderRadius: "12px",
+    },
+  };
 
   return (
+    /*
     <div className="admin-profile-container">
       <NavBar />
       <div className="admin-profile-wrapper">
         <h2 className="title">Employee Details</h2>
 
-        {/* Grouped top actions */}
+        
         <div className="top-actions">
           <Search
-            placeholder="Search by name"
+            placeholder="Search by employee name"
+            className="search-input compact-search"
             allowClear
-            enterButton="Search"
+            enterButton={<FontAwesomeIcon icon={faSearch} />}
             size="large"
             onSearch={(value) => setSearchQuery(value)}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ maxWidth: 400 }}
+            style={{ minWidth: 100, maxWidth: 400 }}
           />
 
           <Button
@@ -177,6 +295,7 @@ const AdminProfile = () => {
             size="large"
             onClick={() => setIsModalVisible(true)}
           >
+            <FontAwesomeIcon icon={faAdd} />
             Add Staff
           </Button>
         </div>
@@ -186,6 +305,7 @@ const AdminProfile = () => {
           columns={columns}
           className="staffTable"
           rowKey="_id"
+          scroll={{ x: 1000 }}
         />
 
         <Modal
@@ -215,10 +335,52 @@ const AdminProfile = () => {
             />
           )}
         </Modal>
+
+        <Drawer
+          title="Employee Salary"
+          placement="right"
+          onClose={() => {
+            setIsSalaryVisible(false);
+            setSelectedProfile(null);
+          }}
+          open={isSalaryVisible}
+          width={500}
+        >
+          {isSalaryVisible && selectedProfile && (
+            <Salary
+              profile={selectedProfile}
+              onCloseDrawer={() => setIsSalaryVisible(false)}
+              key={selectedProfile._id}
+            />
+          )}
+        </Drawer>
       </div>
       <footer className="text-center mt-8 text-gray-600">
         Designed by Buddhika Sadun
       </footer>
+    </div>*/
+    <div>
+      <DashboardContent />
+      <div>
+        <h4 className="dashboard-title">Admin Dashboard</h4>
+      </div>
+
+      <div className="card-wrapper">
+        <div className="card">
+          <h3>Total Employees</h3>
+          <p>120</p>
+        </div>
+
+        <div className="card">
+          <h3>Pending Leave Requests</h3>
+          <p>8</p>
+        </div>
+
+        <div className="card">
+          <h3>Total Salary</h3>
+          <p>Rs. 2,450,000</p>
+        </div>
+      </div>
     </div>
   );
 };

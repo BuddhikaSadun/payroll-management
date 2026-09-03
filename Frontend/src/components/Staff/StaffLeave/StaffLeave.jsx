@@ -3,7 +3,7 @@ import axios from "axios";
 import { Modal, Button, Table, Alert, message } from "antd";
 import AddLeave from "./AddStaffLeave.jsx";
 
-import "../../../assets/Staff/Leave/StaffLeave.css"; // Your CSS file here
+import "../../../assets/commonTable.css";
 
 function StaffLeave() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,7 +21,7 @@ function StaffLeave() {
 
         // 1. Get employee by email
         const empRes = await axios.get(
-          `http://localhost:8000/profile/${email}`
+          `http://localhost:8000/profile/${email}`,
         );
         const employee = empRes.data.employee; // adjust if your response shape differs
 
@@ -37,7 +37,7 @@ function StaffLeave() {
 
         // 2. Get leave records for the matched employee
         const leaveRes = await axios.get(
-          `http://localhost:8000/leave/${employee._id}`
+          `http://localhost:8000/leave/${employee._id}`,
         );
         setLeaveData(leaveRes.data.leaves || []);
       } catch (error) {
@@ -102,12 +102,14 @@ function StaffLeave() {
   ];
 
   return (
-    <div className="leave-container">
-      <h2>Employee Leaves</h2>
+    <div className="staff-section">
+      <h2 className="staff-section-title">Employee Leaves</h2>
+
       <Table
+        className="staff-table"
         dataSource={leaveData.map((leave) => ({
           ...leave,
-          key: leave._id, // Assuming each leave has a unique _id from MongoDB
+          key: leave._id,
           employeeName: leave.employeeName || "N/A",
         }))}
         columns={LeaveColumns}
@@ -117,9 +119,11 @@ function StaffLeave() {
         type="primary"
         size="large"
         onClick={() => setIsModalVisible(true)}
+        className="staff-action-button"
       >
         Add Leave
       </Button>
+
       <Modal
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
@@ -127,8 +131,8 @@ function StaffLeave() {
       >
         <AddLeave
           onSuccess={() => {
-            setIsModalVisible(false); // Close modal
-            leaveRequestHandler(); // Refresh table
+            setIsModalVisible(false);
+            leaveRequestHandler();
           }}
         />
       </Modal>

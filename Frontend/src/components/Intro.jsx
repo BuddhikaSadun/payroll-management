@@ -52,7 +52,7 @@ function Intro() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <Header/>
+      <Header />
       <h1
         style={{
           textAlign: "center",
@@ -118,27 +118,6 @@ function Intro() {
             </p>
           </motion.div>
         ))}
-      </div>
-
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <button
-          onClick={() => navigate("/login")}
-          style={{
-            backgroundColor: "#4f46e5",
-            color: "white",
-            border: "none",
-            padding: "15px 40px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            borderRadius: "8px",
-            cursor: "pointer",
-            transition: "background 0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#4338ca")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#4f46e5")}
-        >
-          Go to Login
-        </button>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Button } from "antd";
 
 import NavBar from "../../NavBar";
 import "../../../assets/Staff/Profile/StaffProfile.css";
-import { Header } from "antd/es/layout/layout";
+import Header from "../../Header";
 import StaffSalary from "../StaffSalary/StaffSalary";
 import StaffLeave from "../StaffLeave/StaffLeave";
 
@@ -29,7 +29,7 @@ function StaffProfile() {
   const fetchEmployeeData = async (email) => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/employee/profile/${email}`
+        `http://localhost:8000/employee/profile/${email}`,
       );
       const employee = res.data.employee;
 
@@ -50,6 +50,7 @@ function StaffProfile() {
 
   return (
     <div className="staff-profile-container">
+      <Header />
       <h1 style={{ textAlign: "center" }}>Employee Profile</h1>
       <div className="staff-card">
         <h2>Employee Details</h2>
@@ -151,10 +152,11 @@ function StaffProfile() {
       </div>
 
       <div className="salary-leave-wrapper">
-        <div className="leaveCard">
+        <div className="leave-card">
           <StaffLeave />
         </div>
-        <div className="salaryCard">
+
+        <div className="salary-card">
           <StaffSalary />
         </div>
       </div>
