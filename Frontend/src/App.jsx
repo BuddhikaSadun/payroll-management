@@ -1,5 +1,5 @@
 import Login from "./components/Login.jsx";
-import AdminProfile from "./components/Admin/AdminProfile/AdminProfile.jsx";
+import AdminProfile from "./components/Admin/Dashboard/AdminProfile.jsx";
 import Salary from "./components/Admin/Salary/AdminSalaryAll.jsx";
 import Leave from "./components/Admin/Leave/AdminLeave.jsx";
 
