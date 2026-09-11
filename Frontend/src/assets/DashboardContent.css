@@ -1,60 +1,36 @@
-/* =========================
-   Admin Header
-   ========================= */
+
 
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   height: 70px;
-
   padding: 0 30px;
-
   background-color: #ffffff !important;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
   line-height: normal;
 }
 
-/* =========================
-   Logo / Title
-   ========================= */
 
 .header-logo {
   font-size: 22px;
   font-weight: 600;
   color: #1f2937;
-
   white-space: nowrap;
 }
 
-/* =========================
-   Right Side Content
-   ========================= */
 
 .header-content {
   display: flex;
   align-items: center;
-
   gap: 25px;
 }
-
-/* =========================
-   Current Date
-   ========================= */
 
 .current-date {
   font-size: 14px;
   color: #555555;
-
   white-space: nowrap;
 }
-
-/* =========================
-   Search
-   ========================= */
 
 .header-search {
   width: 220px;
