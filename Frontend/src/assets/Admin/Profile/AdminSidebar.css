@@ -1,0 +1,29 @@
+.admin-sidebar {
+  min-height: 100vh;
+  background: #ffffff !important;
+  border-right: 1px solid #e5e5e5;
+}
+
+.sidebar-logo {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.sidebar-logo h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.admin-sidebar .ant-menu {
+  border-right: none;
+  background: #ffffff;
+}
+
+.admin-sidebar .ant-menu-item {
+  margin: 5px 10px;
+  width: auto;
+  border-radius: 8px;
+}

@@ -5,7 +5,7 @@ import { Select } from "antd";
 const { Option } = Select;
 
 import "../../../assets/Admin/Leave/AdminLeave.css";
-import NavBar from "../../NavBar";
+import NavBar from "../../../NavBar";
 
 function AdminLeave() {
   const [loading, setLoading] = useState(false);

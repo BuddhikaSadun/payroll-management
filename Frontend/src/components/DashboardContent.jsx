@@ -1,7 +1,7 @@
 import React from "react";
-import { Layout, Input, Avatar} from "antd";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { Layout, Input, Avatar } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 import "../assets/DashboardContent.css";
 
@@ -16,23 +16,20 @@ export default function DashboardContent() {
   return (
     <Header className="app-header">
       {/* Left Side */}
-      <h2>Admin Dashboard</h2>
+      <h2>Dashboard Header</h2>
 
       {/* Right Side */}
       <div className="header-content">
-        
-
         {/* Search */}
         <Input className="header-search" placeholder="Search" />
 
         {/* Notification icon */}
         <div className="header-icon">
-          <FontAwesomeIcon icon={faBell}/>
+          <FontAwesomeIcon icon={faBell} />
         </div>
 
-{/* Current Date */}
+        {/* Current Date */}
         <div className="current-date">{currentDate}</div>
-        
       </div>
     </Header>
   );

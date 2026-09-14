@@ -29,16 +29,16 @@ function Login() {
       localStorage.setItem("user", JSON.stringify({ email, position }));
 
       Swal.fire({
-    title: "Success",
-    icon: "success",
-    text: `Successfully logged in as ${position}!`,
-});
+        title: "Success",
+        icon: "success",
+        text: `Successfully logged in as ${position}!`,
+      });
 
       if (position === "Admin") {
-    navigate("/admin/profile");
-} else if (position === "Staff") {
-    navigate("/staff/profile");
-}
+        navigate("/admin/profile");
+      } else if (position === "Staff") {
+        navigate("/staff/profile");
+      }
     } catch (error) {
       console.error(error);
 
@@ -52,195 +52,195 @@ function Login() {
       });
     }
   };
- 
+
   return (
     <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(105deg, #4f46e5, #0000, #60a5fa)",
+        fontFamily: "Arial, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Header />
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "650px",
+          backgroundColor: "#ffffff",
+          marginTop: "50px",
+          alignSelf: "center",
+          padding: "35px",
+          borderRadius: "12px",
+          boxShadow: "0 8px 25px rgba(0, 0, 0, 0.12)",
+        }}
+      >
+        {/* Title */}
+        <h2
           style={{
-            minHeight: "100vh",
-            background: "linear-gradient(105deg, #4f46e5, #0000, #60a5fa)",
-            fontFamily: "Arial, sans-serif",
-            display: "flex",
-            flexDirection: "column",
+            textAlign: "center",
+            marginBottom: "30px",
+            color: "#1f2937",
+            fontSize: "28px",
+            fontWeight: "700",
           }}
         >
-            <Header/>
-          <div
+          Login
+        </h2>
+
+        <form onSubmit={loginHandler}>
+          {/* Email */}
+          <div style={{ marginBottom: "20px" }}>
+            <label
+              htmlFor="email"
+              style={{
+                display: "block",
+                marginBottom: "7px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#374151",
+              }}
+            >
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                padding: "12px 14px",
+                border: "1px solid #d1d5db",
+                borderRadius: "7px",
+                fontSize: "15px",
+                outline: "none",
+              }}
+            />
+          </div>
+
+          {/* Password */}
+          <div style={{ marginBottom: "20px" }}>
+            <label
+              htmlFor="password"
+              style={{
+                display: "block",
+                marginBottom: "7px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#374151",
+              }}
+            >
+              Password
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                padding: "12px 14px",
+                border: "1px solid #d1d5db",
+                borderRadius: "7px",
+                fontSize: "15px",
+                outline: "none",
+              }}
+            />
+          </div>
+
+          {/* Position */}
+          <div style={{ marginBottom: "25px" }}>
+            <label
+              htmlFor="position"
+              style={{
+                display: "block",
+                marginBottom: "7px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#374151",
+              }}
+            >
+              Position
+            </label>
+
+            <select
+              id="position"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                padding: "12px 14px",
+                border: "1px solid #d1d5db",
+                borderRadius: "7px",
+                fontSize: "15px",
+                backgroundColor: "#ffffff",
+                color: "#374151",
+                outline: "none",
+                cursor: "pointer",
+              }}
+            >
+              <option value="">Select Position</option>
+              <option value="Admin">Admin</option>
+              <option value="Staff">Staff</option>
+            </select>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
             style={{
               width: "100%",
-              maxWidth: "650px",
-              backgroundColor: "#ffffff",
-              marginTop: "50px",
-              alignSelf: "center",
-              padding: "35px",
-              borderRadius: "12px",
-              boxShadow: "0 8px 25px rgba(0, 0, 0, 0.12)",
+              padding: "12px",
+              backgroundColor: "#4f46e5",
+              color: "#ffffff",
+              fontWeight: "600",
+              fontSize: "16px",
+              border: "none",
+              borderRadius: "7px",
+              cursor: "pointer",
+              transition: "background-color 0.2s ease",
             }}
           >
-            {/* Title */}
-            <h2
-              style={{
-                textAlign: "center",
-                marginBottom: "30px",
-                color: "#1f2937",
-                fontSize: "28px",
-                fontWeight: "700",
-              }}
-            >
-              Login
-            </h2>
-    
-            <form onSubmit={loginHandler}>
-              {/* Email */}
-              <div style={{ marginBottom: "20px" }}>
-                <label
-                  htmlFor="email"
-                  style={{
-                    display: "block",
-                    marginBottom: "7px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#374151",
-                  }}
-                >
-                  Email
-                </label>
-    
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    boxSizing: "border-box",
-                    padding: "12px 14px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "7px",
-                    fontSize: "15px",
-                    outline: "none",
-                  }}
-                />
-              </div>
-    
-              {/* Password */}
-              <div style={{ marginBottom: "20px" }}>
-                <label
-                  htmlFor="password"
-                  style={{
-                    display: "block",
-                    marginBottom: "7px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#374151",
-                  }}
-                >
-                  Password
-                </label>
-    
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    boxSizing: "border-box",
-                    padding: "12px 14px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "7px",
-                    fontSize: "15px",
-                    outline: "none",
-                  }}
-                />
-              </div>
-    
-              {/* Position */}
-              <div style={{ marginBottom: "25px" }}>
-                <label
-                  htmlFor="position"
-                  style={{
-                    display: "block",
-                    marginBottom: "7px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#374151",
-                  }}
-                >
-                  Position
-                </label>
-    
-                <select
-                  id="position"
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    boxSizing: "border-box",
-                    padding: "12px 14px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "7px",
-                    fontSize: "15px",
-                    backgroundColor: "#ffffff",
-                    color: "#374151",
-                    outline: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  <option value="">Select Position</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Staff">Staff</option>
-                </select>
-              </div>
-    
-              {/* Submit Button */}
-              <button
-                type="submit"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  backgroundColor: "#4f46e5",
-                  color: "#ffffff",
-                  fontWeight: "600",
-                  fontSize: "16px",
-                  border: "none",
-                  borderRadius: "7px",
-                  cursor: "pointer",
-                  transition: "background-color 0.2s ease",
-                }}
-              >
-                Login
-              </button>
-            </form>
-    
-            {/* Login Link */}
-            <p
-              style={{
-                textAlign: "center",
-                marginTop: "25px",
-                marginBottom: "0",
-                color: "#6b7280",
-                fontSize: "14px",
-              }}
-            >
-              Not registered?{" "}
-              <Link
-                to="/register"
-                style={{
-                  color: "#4f46e5",
-                  fontWeight: "700",
-                  textDecoration: "none",
-                }}
-              >
-                Register
-              </Link>
-            </p>
-          </div>
-        </div>
+            Login
+          </button>
+        </form>
+
+        {/* Login Link */}
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "25px",
+            marginBottom: "0",
+            color: "#6b7280",
+            fontSize: "14px",
+          }}
+        >
+          Not registered?{" "}
+          <Link
+            to="/register"
+            style={{
+              color: "#4f46e5",
+              fontWeight: "700",
+              textDecoration: "none",
+            }}
+          >
+            Register
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }
 export default Login;
