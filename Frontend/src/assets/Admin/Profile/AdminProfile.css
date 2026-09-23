@@ -1,12 +1,19 @@
 .dashboard-container {
   background: linear-gradient(105deg, #4f46e5, #0000, #60a5fa);
 }
+
+.header-search-add-employee {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 20px 0px;
+}
 table {
   border-collapse: collapse;
   width: 100%;
 }
 th {
-  background-color: #04aa6d;
+  background-color: #3980e3;
   color: white;
 }
 th,
@@ -43,7 +50,22 @@ tr:hover {
   min-height: 100vh;
   padding-bottom: 40px;
 }
+.employee-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
 
+.edit-button {
+  background-color: #16a34a;
+  border-color: #16a34a;
+}
+
+.edit-button:hover {
+  background-color: #15803d !important;
+  border-color: #15803d !important;
+}
 .admin-profile-wrapper {
   background-color: rgba(255, 255, 255, 0.85);
   margin: 40px auto;

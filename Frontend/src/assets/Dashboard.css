@@ -1,7 +1,6 @@
-.dashboard-container {
-  /* background: linear-gradient(105deg, #4f46e5, #0000, #60a5fa); */
+.admin-layout {
+  background-color: #f0f2f5;
 }
-
 .dashboard-header {
   background: linear-gradient(105deg, #4f46e5, #0000, #60a5fa);
   padding: 0px 20px;
