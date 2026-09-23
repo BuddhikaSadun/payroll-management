@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import croppedLogo from "../assets/images/StaffSyncLogo.png";
+import croppedLogo from "../assets/images/logo.png";
 import "../assets/Header.css";
 
 export default function Header() {

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import "../../../assets/Dashboard.css";
-import DashboardContent from "../../DashboardContent";
-import AdminSidebar from "./AdminSideBar.jsx";
+import DashboardContent from "../../DashboardContent.jsx";
+import AdminSidebar from "../AdminSideBar.jsx";
 
-import Header from "../../Header";
 import { Layout } from "antd";
 const { Content } = Layout;
-const AdminProfile = () => {
+const AdminDashboard = () => {
   const [profileList, setProfileList] = useState([]);
   const [salaryList, setSalaryList] = useState([]);
   const [leaveList, setLeaveList] = useState([]);
@@ -122,50 +121,39 @@ const AdminProfile = () => {
   }));
 
   return (
-    <Layout className="admin-layout">
-      {/* Vertical Navigation */}
-      <AdminSidebar />
+    <div>
+      <div className="card-wrapper">
+        <div className="card">
+          <h3>Total Payroll</h3>
+          <p>Rs. {totalPayroll.toLocaleString()}</p>
+        </div>
 
-      <Layout>
-        {/* Existing horizontal header */}
-        <DashboardContent />
+        <div className="card">
+          <h3>Total Employees</h3>
+          <p>{profileList.length}</p>
+        </div>
 
-        {/* Dashboard Content */}
-        <Content className="dashboard-container">
-          <div className="card-wrapper">
-            <div className="card">
-              <h3>Total Payroll</h3>
-              <p>Rs. {totalPayroll.toLocaleString()}</p>
-            </div>
+        <div className="card">
+          <h3>Pending Leave Requests</h3>
+          <p>{pendingLeaves}</p>
+        </div>
 
-            <div className="card">
-              <h3>Total Employees</h3>
-              <p>{profileList.length}</p>
-            </div>
+        <div className="card">
+          <h3>Accepted Leave Requests</h3>
+          <p>{acceptedLeaves}</p>
+        </div>
+      </div>
 
-            <div className="card">
-              <h3>Pending Leave Requests</h3>
-              <p>{pendingLeaves}</p>
-            </div>
+      <div className="overview-wrapper">
+        <div className="emp-overview">
+          <h3>Employee Management Overview</h3>
+        </div>
 
-            <div className="card">
-              <h3>Accepted Leave Requests</h3>
-              <p>{acceptedLeaves}</p>
-            </div>
-          </div>
-
-          <div className="overview-wrapper">
-            <div className="emp-overview">
-              <h3>Employee Management Overview</h3>
-            </div>
-
-            <div className="leave-overview">
-              <h3>Leave Overview</h3>
-            </div>
-          </div>
-        </Content>
-      </Layout>
-    </Layout>
+        <div className="leave-overview">
+          <h3>Leave Overview</h3>
+        </div>
+      </div>
+    </div>
   );
 };
-export default AdminProfile;
+export default AdminDashboard;

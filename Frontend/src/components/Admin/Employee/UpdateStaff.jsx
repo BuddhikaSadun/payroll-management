@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-import "../../../assets/Staff/Profile/UpdateStaff.css"; // Your CSS file here
+import "../../../assets/Staff/Profile/UpdateStaff.css";
 
 const UpdateStaff = ({ initialValues, onClose, onUpdate }) => {
   const [profileImg, setProfileImg] = useState(null);
@@ -40,12 +40,21 @@ const UpdateStaff = ({ initialValues, onClose, onUpdate }) => {
       };
 
       await onUpdate(updatedData); // call parent handler
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        text: `Successfully Updated Staff!`,
+      });
 
       resetForm();
       setProfileImg(null);
     } catch (err) {
       console.error("Update failed", err);
-      alert("Update failed");
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: `Failed to update employee!`,
+      });
     }
   };
   const onImageChange = (event) => {
@@ -58,7 +67,6 @@ const UpdateStaff = ({ initialValues, onClose, onUpdate }) => {
   return (
     <div className="update-staff-container">
       <div className="update-staff-wrapper">
-        <h1 className="update-staff-title">Employee Update</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -188,15 +196,8 @@ const UpdateStaff = ({ initialValues, onClose, onUpdate }) => {
 
               {/* Buttons */}
               <div className="update-staff-buttons">
-                <button type="submit" className="update-staff-btn-blue">
+                <button type="submit" className="update-staff-btn-green">
                   Update Staff
-                </button>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="update-staff-btn-cancel"
-                >
-                  Cancel
                 </button>
               </div>
             </Form>

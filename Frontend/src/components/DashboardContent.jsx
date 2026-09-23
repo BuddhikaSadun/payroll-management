@@ -1,34 +1,44 @@
 import React from "react";
-import { Layout, Input, Avatar } from "antd";
+import { Layout, Input } from "antd";
+import { useLocation } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 import "../assets/DashboardContent.css";
 
 const { Header } = Layout;
-import "../assets/DashboardContent.css";
+
 export default function DashboardContent() {
+  const location = useLocation();
+
   const currentDate = new Date().toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const pageTitles = {
+    "/admin/dashboard": "Dashboard",
+    "/admin/employees": "Employee Management",
+    "/admin/salary": "Salary Management",
+    "/admin/leave": "Leave Management",
+    "/admin/reports": "Reports",
+  };
+
+  const currentPage = pageTitles[location.pathname] || "Admin Dashboard";
+
   return (
     <Header className="app-header">
-      {/* Left Side */}
-      <h2>Dashboard Header</h2>
+      <h2>{currentPage}</h2>
 
-      {/* Right Side */}
       <div className="header-content">
-        {/* Search */}
         <Input className="header-search" placeholder="Search" />
 
-        {/* Notification icon */}
         <div className="header-icon">
           <FontAwesomeIcon icon={faBell} />
         </div>
 
-        {/* Current Date */}
         <div className="current-date">{currentDate}</div>
       </div>
     </Header>

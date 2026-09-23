@@ -1,4 +1,3 @@
-import React from "react";
 import { Layout, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,8 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-
+import logo from "../../assets/images/logo.png";
+import "../../assets/MenuItems.css";
 const { Sider } = Layout;
 
 const AdminSidebar = () => {
@@ -44,21 +44,26 @@ const AdminSidebar = () => {
       label: "Reports",
     },
     {
-      key: "/admin/settings",
-      icon: <SettingOutlined />,
-      label: "Settings",
+      key: "/",
+      icon: <LogoutOutlined />,
+      label: "Log Out",
+      style: { marginTop: "340px" },
     },
   ];
 
   return (
-    <Sider width={240} className="admin-sidebar">
-      <div className="sidebar-logo">
-        <h2>Admin Panel</h2>
+    <Sider
+      width={220}
+      style={{ minHeight: "100vh", backgroundColor: "#001529" }}
+    >
+      <div style={{ backgroundColor: "white" }}>
+        <img src={logo} alt="StaffSync Logo" width="75%" height="auto" />
       </div>
 
       <Menu
         mode="inline"
         items={menuItems}
+        className="admin-menu"
         onClick={({ key }) => navigate(key)}
       />
     </Sider>

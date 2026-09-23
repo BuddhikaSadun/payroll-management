@@ -3,8 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import bg from "../assets/images/bg.png";
-import Header from "./Header";
+import Logo from "../assets/images/logo.png";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +34,7 @@ function Login() {
       });
 
       if (position === "Admin") {
-        navigate("/admin/profile");
+        navigate("/admin/dashboard");
       } else if (position === "Staff") {
         navigate("/staff/profile");
       }
@@ -63,13 +62,24 @@ function Login() {
         flexDirection: "column",
       }}
     >
-      <Header />
+      <img
+        src={Logo}
+        alt="Logo"
+        width={200}
+        style={{
+          alignItems: "center",
+          display: "block",
+          margin: "0px auto",
+          paddingTop: "30px",
+        }}
+      />
       <div
         style={{
           width: "100%",
           maxWidth: "650px",
           backgroundColor: "#ffffff",
-          marginTop: "50px",
+          marginTop: "10px",
+          marginBottom: "10px",
           alignSelf: "center",
           padding: "35px",
           borderRadius: "12px",

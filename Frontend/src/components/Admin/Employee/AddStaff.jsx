@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../../../assets/Staff/Profile/AddStaff.css"; // Your CSS file here
+import Swal from "sweetalert2";
 
-const AddStaff = () => {
+const AddStaff = ({ isOpen }) => {
   const [profileImg, setProfileImg] = useState(null);
-  const { loginid } = useParams(); // Retrieve loginid from URL parameters
-  console.log("Login ID from URL:", loginid);
+  const [profileImgFile, setProfileImgFile] = useState(null);
+  const [ImgError, setImgError] = useState("");
 
-  const navigate = useNavigate();
+  const formikRef = useRef(null);
+  useEffect(() => {
+    if (!isOpen) {
+      formikRef.current?.resetForm();
+
+      setProfileImg(null);
+      setProfileImgFile(null);
+      setImgError("");
+    }
+  }, [isOpen]);
 
   // Validation schema using Yup
   const validationSchema = yup.object({
@@ -19,7 +28,10 @@ const AddStaff = () => {
         .string()
         .required("Name is required")
         .matches(/^[A-Za-z\s]+$/, "Invalid naming format"),
-      email: yup.string().required("Email is required").email(),
+      email: yup
+        .string()
+        .required("Email is required")
+        .email("Invalid email format"),
       contactNo: yup
         .string()
         .matches(/^\d{3}-\d{7}$/, "Invalid contact number format")
@@ -37,25 +49,39 @@ const AddStaff = () => {
 
   // Handle image upload
   const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setProfileImg(URL.createObjectURL(img));
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setProfileImg(null);
+      setProfileImgFile(null);
+      return;
+    }
+
+    if (file.type === "image/png" || file.type === "image/jpeg") {
+      setImgError("");
+      setProfileImgFile(file);
+      setProfileImg(URL.createObjectURL(file));
+    } else {
+      setImgError("Only PNG and JPEG images are allowed");
+      setProfileImg(null);
+      setProfileImgFile(null);
+      event.target.value = "";
     }
   };
   // Submit form data
   const handleSubmit = async (values, { resetForm }) => {
+    if (ImgError) {
+      alert(ImgError);
+      return;
+    }
+
     try {
       const formData = new FormData();
 
-      // Send the entire object as a single JSON string
       formData.append("data", JSON.stringify(values));
 
-      // Attach image if selected
-      if (profileImg) {
-        const imageFileInput = document.querySelector('input[type="file"]');
-        if (imageFileInput && imageFileInput.files.length > 0) {
-          formData.append("img", imageFileInput.files[0]);
-        }
+      if (profileImgFile) {
+        formData.append("img", profileImgFile);
       }
 
       await axios.post("http://localhost:8000/employee/save", formData, {
@@ -64,27 +90,42 @@ const AddStaff = () => {
         },
       });
 
-      alert("Successfully created!");
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        text: `Successfully Created Staff!`,
+      });
+
       resetForm();
       setProfileImg(null);
+      setProfileImgFile(null);
+      setImgError("");
     } catch (error) {
       console.error(error.message);
-      alert("Failed to add staff");
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: `Failed to add staff!`,
+      });
     }
   };
 
   return (
     <div className="addstaff-container">
       <div className="addstaff-wrapper">
-        <h1 className="addstaff-title">Employee Registration</h1>
         <Formik
+          innerRef={formikRef}
           initialValues={{
-            name: "",
-            email: "",
-            contactNo: "",
-            status: "",
-            dept: "",
-            designation: "",
+            personalDetails: {
+              name: "",
+              email: "",
+              contactNo: "",
+            },
+            employmentDetails: {
+              status: "",
+              dept: "",
+              designation: "",
+            },
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -199,18 +240,12 @@ const AddStaff = () => {
                     className="addstaff-img-preview"
                   />
                 )}
+                {ImgError && <div className="addstaff-error">{ImgError}</div>}
               </div>
 
               <div className="addstaff-buttons">
                 <button type="submit" className="addstaff-btn-blue">
                   Add Staff
-                </button>
-                <button
-                  type="button"
-                  className="addstaff-btn-green"
-                  onClick={() => navigate(`/staff/${loginid}`)}
-                >
-                  Home
                 </button>
               </div>
             </Form>

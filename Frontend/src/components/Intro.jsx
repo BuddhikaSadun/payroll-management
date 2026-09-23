@@ -7,6 +7,7 @@ import leaveImg from "../assets/images/leave.png";
 import salaryImg from "../assets/images/salary.png";
 import staffMgmtImg from "../assets/images/staff.png";
 import { motion } from "framer-motion";
+import Logo from "../assets/images/logo.png";
 import Header from "./Header";
 function Intro() {
   const navigate = useNavigate();
@@ -52,7 +53,16 @@ function Intro() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <Header />
+      <img
+        src={Logo}
+        alt="Logo"
+        width={200}
+        style={{
+          alignItems: "center",
+          display: "block",
+          margin: "0 auto",
+        }}
+      />
       <h1
         style={{
           textAlign: "center",
@@ -73,7 +83,6 @@ function Intro() {
       >
         Manage your company staff operations efficiently with our system.
       </p>
-
       <div
         style={{
           display: "grid",
@@ -118,6 +127,33 @@ function Intro() {
             </p>
           </motion.div>
         ))}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "40px",
+        }}
+      >
+        <a
+          href="/login"
+          style={{
+            display: "inline-block",
+            padding: "20px 80px",
+            background: "#4f46e5",
+            color: "#fff",
+            fontSize: "16px",
+            fontWeight: "600",
+            textDecoration: "none",
+            borderRadius: "8px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            transition: "all 0.3s ease",
+          }}
+        >
+          Login
+        </a>
       </div>
     </div>
   );
