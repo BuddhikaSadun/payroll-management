@@ -135,8 +135,9 @@ function AddStaffLeave({ onSuccess }) {
             ))}
           </select>
         </div>
-
-        <input type="submit" value="Submit" className="submit-btn" />
+        <center>
+          <input type="submit" value="Submit" className="submit-btn" />
+        </center>
       </form>
     </div>
   );

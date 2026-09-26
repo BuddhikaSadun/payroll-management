@@ -50,13 +50,15 @@ function StaffProfile() {
 
   return (
     <div className="staff-profile-container">
-      <Header />
       <h1 style={{ textAlign: "center" }}>Employee Profile</h1>
       <div className="staff-card">
-        <h2>Employee Details</h2>
         <div className="profile-image-container">
           {staffData.img ? (
-            <img src={staffData.img} alt="Employee" className="profile-image" />
+            <img
+              src={`http://localhost:8000/${staffData.img.replace(/\\/g, "/")}`}
+              alt="Employee"
+              className="profile-image"
+            />
           ) : (
             <i className="fas fa-user-circle default-profile-icon"></i>
           )}
