@@ -74,10 +74,9 @@ input[type="button"]:hover {
   background-color: #0823d8; /* Slightly darker on hover */
 }
 .submit-btn {
-  width: 200px;
-  height: 50px;
-  font-size: 18px;
-  font-weight: bold;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
   color: white;
   background: linear-gradient(135deg, #1890ff, #40a9ff);
   border: none;
