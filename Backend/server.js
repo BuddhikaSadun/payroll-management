@@ -45,7 +45,12 @@ mongoose
   .catch((err) => {
     console.error("MongoDB connection error:", err.message);
   });
-
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Payroll Management API is running",
+  });
+});
 // Start server
 app.listen(port, () => {
   console.log(`Backend is running on: ${port}`);
