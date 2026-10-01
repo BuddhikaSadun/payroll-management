@@ -96,7 +96,7 @@ router.get("/profile/:email", async (req, res) => {
   const { email } = req.params;
 
   try {
-    const employee = await Employee.findOne({ "personalDetails.email": email }); // ✅ correct path
+    const employee = await Employee.findOne({ "personalDetails.email": email });
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
@@ -178,7 +178,7 @@ router.put("/update/:id", async (req, res) => {
     const updatedEmployee = await Employee.findByIdAndUpdate(
       req.params.id,
       { $set: updateFields },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedEmployee) {
