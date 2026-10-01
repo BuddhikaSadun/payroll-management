@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+const API_URL = import.meta.env.VITE_API_URL;
 
 import Logo from "../assets/images/logo.png";
 function Login() {
@@ -15,7 +16,7 @@ function Login() {
   const loginHandler = async (data) => {
     data.preventDefault();
     try {
-      await axios.post("http://localhost:8000/basicUser/loginUser", {
+      await axios.post(`${API_URL}/basicUser/loginUser`, {
         email: email,
         password: password,
         position: position,

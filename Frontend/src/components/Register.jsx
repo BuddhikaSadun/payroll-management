@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Logo from "../assets/images/logo.png";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function Register() {
     data.preventDefault();
 
     try {
-      await axios.post("http://localhost:8000/basicUser/createUser", {
+      await axios.post(`${API_URL}/basicUser/createUser`, {
         email,
         password,
         position,

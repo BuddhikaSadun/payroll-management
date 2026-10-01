@@ -7,7 +7,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button, Input, Modal } from "antd";
-
+const API_URL = import.meta.env.VITE_API_URL;
 import "../../../assets/Admin/Profile/AdminProfile.css";
 import AddStaff from "./AddStaff.jsx";
 import UpdateStaff from "./UpdateStaff.jsx";
@@ -44,7 +44,7 @@ const EmployeeManagement = () => {
 
   const fetchProfiles = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/employee/get");
+      const response = await axios.get(`${API_URL}/employee/get`);
 
       setProfileList(response.data.profiles);
     } catch (error) {
@@ -55,7 +55,7 @@ const EmployeeManagement = () => {
   const handleUpdate = async (updatedData) => {
     try {
       await axios.put(
-        `http://localhost:8000/employee/update/${updatedData._id}`,
+        `${API_URL}/employee/update/${updatedData._id}`,
         updatedData,
       );
       Swal.fire({
@@ -81,7 +81,7 @@ const EmployeeManagement = () => {
       return;
     }
     try {
-      await axios.delete(`http://localhost:8000/employee/delete/${id}`);
+      await axios.delete(`${API_URL}/employee/delete/${id}`);
       alert("Employee deleted successfully.");
     } catch (error) {
       console.error("Error deleting employee:", error);

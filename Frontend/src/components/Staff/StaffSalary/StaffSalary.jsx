@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import "../../../assets/commonTable.css";
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function StaffSalary() {
   const [salaryData, setSalaryData] = useState([]);
 
@@ -14,9 +16,7 @@ export default function StaffSalary() {
 
   const fetchSalaryByEmail = async (email) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/salary/email/${email}`,
-      );
+      const response = await axios.get(`${API_URL}/salary/email/${email}`);
       console.log(response.data.salaries);
       setSalaryData(response.data.salaries);
     } catch (error) {

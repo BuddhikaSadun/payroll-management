@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Table, Alert, message } from "antd";
 import AddLeave from "./AddStaffLeave.jsx";
-
+const API_URL = import.meta.env.VITE_API_URL;
 import "../../../assets/commonTable.css";
 
 function StaffLeave() {
@@ -21,7 +21,7 @@ function StaffLeave() {
 
         // 1. Get employee by email
         const empRes = await axios.get(
-          `http://localhost:8000/profile/${email}`,
+          `${API_URL}/employee/profile/${encodeURIComponent(email)}`,
         );
         const employee = empRes.data.employee; // adjust if your response shape differs
 
@@ -36,9 +36,7 @@ function StaffLeave() {
         setEmployeeName(employee.personalDetails?.name || "N/A");
 
         // 2. Get leave records for the matched employee
-        const leaveRes = await axios.get(
-          `http://localhost:8000/leave/${employee._id}`,
-        );
+        const leaveRes = await axios.get(`${API_URL}/leave/${employee._id}`);
         setLeaveData(leaveRes.data.leaves || []);
       } catch (error) {
         console.error("Error fetching leave data:", error);
@@ -50,7 +48,7 @@ function StaffLeave() {
 
   const deleteLeaveHandler = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/leave/delete/${id}`);
+      await axios.delete(`${API_URL}/leave/delete/${id}`);
       alert("Successfully Deleted!");
       leaveRequestHandler(); // Refresh table after delete
     } catch (error) {

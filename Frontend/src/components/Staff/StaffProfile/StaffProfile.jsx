@@ -7,6 +7,7 @@ import "../../../assets/Staff/Profile/StaffProfile.css";
 import Header from "../../Header";
 import StaffSalary from "../StaffSalary/StaffSalary";
 import StaffLeave from "../StaffLeave/StaffLeave";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function StaffProfile() {
   const [staffData, setStaffData] = useState({
@@ -28,9 +29,7 @@ function StaffProfile() {
 
   const fetchEmployeeData = async (email) => {
     try {
-      const res = await axios.get(
-        `http://localhost:8000/employee/profile/${email}`,
-      );
+      const res = await axios.get(`${API_URL}/employee/profile/${email}`);
       const employee = res.data.employee;
 
       setStaffData({
@@ -55,7 +54,7 @@ function StaffProfile() {
         <div className="profile-image-container">
           {staffData.img ? (
             <img
-              src={`http://localhost:8000/${staffData.img.replace(/\\/g, "/")}`}
+              src={`${API_URL}/${staffData.img.replace(/\\/g, "/")}`}
               alt="Employee"
               className="profile-image"
             />
