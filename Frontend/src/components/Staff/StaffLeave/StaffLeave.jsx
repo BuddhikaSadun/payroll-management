@@ -1,15 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Modal, Button, Table, Alert, message } from "antd";
 import AddLeave from "./AddStaffLeave.jsx";
+import "../../../assets/Staff/Leave/Leave.css";
 const API_URL = import.meta.env.VITE_API_URL;
-import "../../../assets/commonTable.css";
 
 function StaffLeave() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [leaveData, setLeaveData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [empId, setEmpId] = useState(null);
   const [employeeName, setEmployeeName] = useState("");
+
+  const fetchLeaveData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_URL}/leave`);
+      console.log("All leave data:", response.data);
+      setLeaveData(response.data.leaves || []);
+    } catch (error) {
+      console.error("Error fetching leave data:", error);
+      message.error(
+        error.response?.data?.message || "Failed to load leave data",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchLeaveDetails = async () => {
@@ -44,13 +61,14 @@ function StaffLeave() {
     };
 
     fetchLeaveDetails();
-  }, []);
+    fetchLeaveData();
+  }, [fetchLeaveData]);
 
   const deleteLeaveHandler = async (id) => {
     try {
       await axios.delete(`${API_URL}/leave/delete/${id}`);
       alert("Successfully Deleted!");
-      leaveRequestHandler(); // Refresh table after delete
+      fetchLeaveData(); // Refresh table after delete
     } catch (error) {
       console.error(error.message);
     }
@@ -73,8 +91,9 @@ function StaffLeave() {
       dataIndex: "startDate",
       key: "startDate",
       render: (date) => (
-        <span style={{ fontSize: "16px", fontWeight: "normal" }}>
-          {new Date(date).toLocaleDateString()}
+        <span style={{ fontSize: "16px" }}>
+          {" "}
+          {date ? new Date(date).toLocaleDateString() : "N/A"}{" "}
         </span>
       ),
     },
@@ -84,7 +103,7 @@ function StaffLeave() {
       key: "endDate",
       render: (date) => (
         <span style={{ fontSize: "16px" }}>
-          {new Date(date).toLocaleDateString()}
+          {date ? new Date(date).toLocaleDateString() : "N/A"}
         </span>
       ),
     },
@@ -101,26 +120,27 @@ function StaffLeave() {
 
   return (
     <div className="staff-section">
-      <h2 className="staff-section-title">Employee Leaves</h2>
-
+      <div className="staff-section-header">
+        <h2 className="staff-section-title">Employee Leaves</h2>
+        <Button
+          type="primary"
+          size="middle"
+          onClick={() => setIsModalVisible(true)}
+        >
+          Add Leave
+        </Button>
+      </div>
       <Table
         className="staff-table"
+        loading={loading}
         dataSource={leaveData.map((leave) => ({
           ...leave,
           key: leave._id,
           employeeName: leave.employeeName || "N/A",
         }))}
         columns={LeaveColumns}
+        pagination={{ pageSize: 10, showSizeChanger: true }}
       />
-
-      <Button
-        type="primary"
-        size="large"
-        onClick={() => setIsModalVisible(true)}
-        className="staff-action-button"
-      >
-        Add Leave
-      </Button>
 
       <Modal
         open={isModalVisible}
