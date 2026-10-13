@@ -3,36 +3,14 @@ import { Alert, DatePicker, TimePicker, message } from "antd";
 import axios from "axios";
 import dayjs from "dayjs";
 import "../../../assets/Staff/Leave/StaffAddLeave.css"; // Your CSS file here
+const API_URL = import.meta.env.VITE_API_URL;
 
 const { RangePicker } = DatePicker;
-
 const leaveTypes = ["Full-Day", "Half-Day"];
 
-function AddStaffLeave({ onSuccess }) {
+function AddStaffLeave({ employeeId, employeeName, onSuccess }) {
   const [dateRange, setDateRange] = useState([]);
-  const [empNames, setEmpNames] = useState([]);
-  const [selectedEmployee, setSelectedEmployee] = useState("");
   const [selectedLeaveType, setSelectedLeaveType] = useState("");
-
-  const fetchEmployeeNames = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/employee/get");
-      const employees = response.data.profiles;
-
-      const formatted = employees.map((emp) => ({
-        _id: emp._id,
-        name: emp.personalDetails?.name || "Unnamed",
-      }));
-
-      setEmpNames(formatted);
-    } catch (error) {
-      console.error("Failed to fetch employees", error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchEmployeeNames();
-  }, []);
 
   const handleRangeChange = (dates) => {
     setDateRange(dates);
@@ -42,18 +20,13 @@ function AddStaffLeave({ onSuccess }) {
     e.preventDefault();
 
     if (
+      !employeeId ||
+      !employeeName ||
       !dateRange ||
       dateRange.length !== 2 ||
-      !selectedEmployee ||
       !selectedLeaveType
     ) {
       message.error("Please fill in all required fields.");
-      return;
-    }
-
-    const selectedEmp = empNames.find((emp) => emp._id === selectedEmployee);
-    if (!selectedEmp) {
-      message.error("Selected employee not found.");
       return;
     }
 
@@ -67,9 +40,9 @@ function AddStaffLeave({ onSuccess }) {
         status: "Pending",
       });
 
-      const response = await axios.post("http://localhost:8000/leave/save", {
+      const response = await axios.post(`${API_URL}/leave/save`, {
         employeeId: selectedEmp._id,
-        employeeName: selectedEmp.name || selectedEmp.personalDetails?.name,
+        employeeName,
         startDate: dayjs(dateRange[0]).toISOString(),
         endDate: dayjs(dateRange[1]).toISOString(),
         leaveType: selectedLeaveType,
@@ -80,7 +53,6 @@ function AddStaffLeave({ onSuccess }) {
 
       // Reset form
       setDateRange([]);
-      setSelectedEmployee("");
       setSelectedLeaveType("");
 
       if (onSuccess) onSuccess();
@@ -96,18 +68,14 @@ function AddStaffLeave({ onSuccess }) {
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label className="input-label">Employee Name</label>
-          <select
+          <input
+            type="text"
+            id="employeeName"
+            value={employeeName || ""}
+            placeholder="Employee Name"
             className="input-field"
-            value={selectedEmployee}
-            onChange={(e) => setSelectedEmployee(e.target.value)}
-          >
-            <option value="">Select Employee</option>
-            {empNames.map((emp) => (
-              <option key={emp._id} value={emp._id}>
-                {emp.name}
-              </option>
-            ))}
-          </select>
+            disabled
+          />
         </div>
 
         <div className="input-container">
@@ -119,7 +87,6 @@ function AddStaffLeave({ onSuccess }) {
             className="input-field"
           />
         </div>
-
         <div className="input-container">
           <label className="input-label">Leave Type</label>
           <select

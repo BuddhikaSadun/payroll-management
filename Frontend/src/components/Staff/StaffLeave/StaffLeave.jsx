@@ -1,50 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Modal, Button, Table, Alert, message } from "antd";
 import AddLeave from "./AddStaffLeave.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 import "../../../assets/commonTable.css";
 
-function StaffLeave() {
+function StaffLeave({ employeeId, employeeName }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [leaveData, setLeaveData] = useState([]);
-  const [empId, setEmpId] = useState(null);
-  const [employeeName, setEmployeeName] = useState("");
+
+  const fetchLeaveDetails = useCallback(async () => {
+    if (!employeeId) return;
+
+    try {
+      const leaveRes = await axios.get(`${API_URL}/leave/${employeeId}`);
+
+      setLeaveData(leaveRes.data.leaves || []);
+    } catch (error) {
+      console.error("Error fetching leave data:", error);
+    }
+  }, [employeeId]);
 
   useEffect(() => {
-    const fetchLeaveDetails = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem("user")); // 👈 Parse JSON
-        if (!user?.email) return;
-
-        const email = user.email;
-
-        // 1. Get employee by email
-        const empRes = await axios.get(
-          `${API_URL}/employee/profile/${encodeURIComponent(email)}`,
-        );
-        const employee = empRes.data.employee; // adjust if your response shape differs
-
-        if (!employee || !employee._id) {
-          console.log("Logged-in email not found in employee records");
-          return;
-        }
-
-        console.log("Logged-in user matched:", employee);
-
-        setEmpId(employee._id);
-        setEmployeeName(employee.personalDetails?.name || "N/A");
-
-        // 2. Get leave records for the matched employee
-        const leaveRes = await axios.get(`${API_URL}/leave/${employee._id}`);
-        setLeaveData(leaveRes.data.leaves || []);
-      } catch (error) {
-        console.error("Error fetching leave data:", error);
-      }
-    };
-
     fetchLeaveDetails();
-  }, []);
+  }, [fetchLeaveDetails]);
 
   const deleteLeaveHandler = async (id) => {
     try {
@@ -128,6 +107,8 @@ function StaffLeave() {
         footer={null}
       >
         <AddLeave
+          employeeId={employeeId}
+          employeeName={employeeName}
           onSuccess={() => {
             setIsModalVisible(false);
             leaveRequestHandler();

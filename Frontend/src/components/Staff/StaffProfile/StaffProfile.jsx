@@ -11,6 +11,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function StaffProfile() {
   const [staffData, setStaffData] = useState({
+    employeeId: "",
     name: "",
     email: "",
     contactNo: "",
@@ -33,6 +34,7 @@ function StaffProfile() {
       const employee = res.data.employee;
 
       setStaffData({
+        employeeId: employee._id,
         name: employee.personalDetails?.name,
         email: employee.personalDetails?.email,
         contactNo: employee.personalDetails?.contactNo,
@@ -154,7 +156,10 @@ function StaffProfile() {
 
       <div className="salary-leave-wrapper">
         <div className="leave-card">
-          <StaffLeave />
+          <StaffLeave
+            employeeId={staffData.employeeId}
+            employeeName={staffData.name}
+          />
         </div>
 
         <div className="salary-card">

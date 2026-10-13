@@ -4,6 +4,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../../../assets/Staff/Profile/AddStaff.css"; // Your CSS file here
 import Swal from "sweetalert2";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AddStaff = ({ isOpen }) => {
   const [profileImg, setProfileImg] = useState(null);
@@ -84,7 +85,7 @@ const AddStaff = ({ isOpen }) => {
         formData.append("img", profileImgFile);
       }
 
-      await axios.post("http://localhost:8000/employee/save", formData, {
+      await axios.post(`${API_URL}/employee/save`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -138,6 +139,7 @@ const AddStaff = ({ isOpen }) => {
                   name="personalDetails.name"
                   type="text"
                   className="addstaff-input"
+                  placeHolder="eg:- John Doe"
                 />
                 <ErrorMessage
                   name="personalDetails.name"
@@ -152,6 +154,7 @@ const AddStaff = ({ isOpen }) => {
                   name="personalDetails.email"
                   type="text"
                   className="addstaff-input"
+                  placeHolder="eg:- john@example.com"
                 />
                 <ErrorMessage
                   name="personalDetails.email"
@@ -204,6 +207,7 @@ const AddStaff = ({ isOpen }) => {
                   name="employmentDetails.dept"
                   type="text"
                   className="addstaff-input"
+                  placeholder="eg:- Human Resources"
                 />
                 <ErrorMessage
                   name="employmentDetails.dept"
@@ -218,6 +222,7 @@ const AddStaff = ({ isOpen }) => {
                   name="personalDetails.contactNo"
                   type="text"
                   className="addstaff-input"
+                  placeholder="eg:- 0## - #######"
                 />
                 <ErrorMessage
                   name="personalDetails.contactNo"
