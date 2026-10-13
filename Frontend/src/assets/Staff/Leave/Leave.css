@@ -16,6 +16,24 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.staff-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.add-leave-button {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 5px;
+  cursor: pointer;
+}
+
+.add-leave-button:hover {
+  background-color: #40a9ff;
+}
 
 /* Table Styles */
 .ant-table {
@@ -48,9 +66,9 @@
 
 /* Buttons */
 .ant-btn {
-  width: 200px;
-  height: 50px;
-  font-size: 18px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
   border-radius: 8px;
 }
 
