@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
   try {
     const leaves = await Leave.find().populate(
       "employeeId",
-      "personalDetails.name"
+      "personalDetails.name",
     );
     res.status(200).json({ leaves });
   } catch (error) {
@@ -42,28 +42,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET: Get attendance/leave by ID
+// GET: Get leave by ID
+
 router.get("/:id", async (req, res) => {
   try {
-    const leaves = await Leave.findById(req.params.id).populate(
-      "employeeId",
-      "personalDetails.name"
-    );
-    if (!leaves) return res.status(404).json({ error: "Record not found" });
-    res.status(200).json(leaves);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-// GET: Get leave by employee ID
-router.get("/:empId", async (req, res) => {
-  try {
-    const { empId } = req.params;
-    const leaves = await Leave.find({ employeeId: empId }).populate(
-      "employeeId",
-      "personalDetails.name"
-    );
-    res.status(200).json({ count: leaves.length, leaves });
+    const leaves = await Leave.find({
+      employeeId: req.params.id,
+    }).populate("employeeId", "personalDetails.name");
+
+    res.status(200).json({
+      leaves: leaves.map((leave) => ({
+        ...leave.toObject(),
+        employeeName: leave.employeeId?.personalDetails?.name || "N/A",
+      })),
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -82,7 +74,7 @@ router.put("/:id/status", async (req, res) => {
     const updatedLeave = await Leave.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true }
+      { new: true },
     ).populate("employeeId", "personalDetails.name");
 
     if (!updatedLeave) {
